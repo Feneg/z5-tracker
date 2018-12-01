@@ -1,6 +1,6 @@
 z5-tracker: Zelda 5 item and location helper program
 
-Note: At time of writing, this program as undergone very little testing. Beware bugs.
+Note: At time of writing, this program has undergone very little testing. Beware bugs.
 
 Overview:
 This program allows you to mark found items and checked locations for The Legend of Zelda: Ocarina of Time. It is primarily meant to be used with the item randomiser created by AmazingAmpharos in 2018, but can also be used for a normal playthrough.
