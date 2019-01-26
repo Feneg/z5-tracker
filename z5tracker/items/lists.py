@@ -16,7 +16,7 @@ ITEMS = (
     i('Boomerang', (0, 2), ('Boomerang',), ('boomerang',)),
     i('Bottle', (0, 3), ('Bottles',)*4, tuple(zip(('bottle',)*4, range(1, 5)))),
     i('Deku Nut Capacity', (1, 0), ('Deku Nuts',)*3,
-      tuple(zip(('nut',)*3, (10, 20, 30)))),
+      tuple(zip(('nut',)*3, (20, 30, 40)))),
     i('Ocarina', (1, 1), ('Fairy Ocarina', 'Ocarina of Time'),
        ('fairyocarina', 'ocarina')),
     i('Lens of Truth', (1, 2), ('Lens of Truth',), ('lens',)),

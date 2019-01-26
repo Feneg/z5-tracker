@@ -15,16 +15,12 @@ def main() -> None:
     Main program.
     '''
 
-    # Start GUI.
-    gui.GUI = gui.guilib.GraphicalInterface()
-
     # Run program.
     restart = True
     while restart:
+        gui.GUI = gui.guilib.GraphicalInterface()
         restart = False
         gui.GUI.run()
         if gui.GUI.restart.is_set():
-            gui.GUI.restart.clear()
-            gui.GUI.gui_root.destroy()
-            gui.GUI = gui.guilib.GraphicalInterface()
+            del gui.GUI
             restart = True

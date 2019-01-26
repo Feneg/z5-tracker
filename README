@@ -6,15 +6,18 @@ Overview:
 This program allows you to mark found items and checked locations for The Legend of Zelda: Ocarina of Time. It is primarily meant to be used with the item randomiser created by AmazingAmpharos in 2018, but can also be used for a normal playthrough.
 It is not a walkthrough. It does assume that you know where each item location is situated and which items are required to reach it. A beginner still might find it useful, although additional help will be required from other sources.
 
+Note for Windows:
+You will need to install Python. Get it at https://www.python.org/downloads/. Once that is done, you can just run 'z5-tracker.py' (double clicking it should suffice).
+
 Usage:
-The program is written in Python3 and requires at least version 3.6. Run it from the program's root folder (the one with this readme) using a command like 'python3 -m z5tracker'.
-So far, it has only been tested on Linux, specifically under Xfce using CPython 3.6. However, since it does not use any external dependencies, every distribution of CPython 3.6 or higher should be able to run it, including on non-Linux operating systems. I don't have much experience with alternative Python implementations, but if they include the required libaries -- especially tkinter -- then they should work, too.
+The program is written in Python3 and requires at least version 3.6. Run it from the program's root folder (the one with this readme) by executing 'z5tracker.py' or -- if you installed it via setup.py -- by just launching z5-tracker from anywhere.
+So far, it has only been tested on Linux -- specifically under Xfce using CPython 3.6. However, since it does not use any external dependencies, every distribution of CPython 3.6 or higher should be able to run it, including on non-Linux operating systems. I don't have much experience with alternative Python implementations, but if they include the required libaries -- especially tkinter -- then they should work, too.
 Please note that -- independent of system environment -- a folder $HOME/.z5-tracker is created on start-up, as is usual on Linux (but not Windows). This folder is used to store some configurations and should be of negligible size. As I don't expect this program to find widespread use, I didn't bother writing platform-specific code for Windows to conform to its standards. Just delete this folder if you don't want to use this program anymore.
 Once you've started the program, you probably want to adjust the 'Rules string' setting in the options. This defines the rules applied to item location and can be copied straight from the randomiser GUI. Don't forget to restart the program after changing this option.
 
 Limitations:
-This helper program is considered fully functional, but has a lot of rough edges. These can be understood as little quirks that would take a disproportionate amount of time to remove -- I basically don't consider them annoying enough to bother fixing.
-As general advice, whenever you change settings or something doesn't seem to work correctly, a restart of the program should be considered.
+This helper program is considered fully functional, but has a lot of rough edges. These can be understood as little quirks that would take a disproportionate amount of effort to remove -- I basically don't consider them annoying enough to spend a lot of time fixing them.
+As general advice, whenever you change settings or something doesn't seem to work correctly, a restart of the program should be considered. No progress should be lost.
 
 Licence:
 This program code is distributed under MIT licence. All artwork is under copyright owned by Nintendo. The author of this program is not affiliated with Nintendo in any way.
@@ -26,53 +29,51 @@ MAQ (mostly anticipated questions):
 None I liked.
 
 - Why don't you provide a Windows binary (i.e. EXE file)?
-Because I do not know how. I don't own any machine running Windows and have the suspicion that without one, I can't build such binaries. In any case, I wouldn't be able to test them.
+Because I do not know how. I've tried a few of the options available but none worked for me (at least on that virtual machine I had available to me). They all seem to be geared towards simple Python scripts.
 If you know how to do it and/or wish to do so, feel free to contact me so that I can add them to the repository.
 
 - Why can't I change option 'X'?
-A few entries are just shown for information and not meant to be changed.
+A few entries are just shown for information and not meant to be changed. (You can always edit the settings file directly, but I won't support this.)
 
-- I changed the rules string. How can I make it have any effect?
+- I changed the settings. How can I make it have any effect?
 Restart the program.
-
-- I tried to load a file, but the program just crashes.
-This is intentional -- it doesn't crash, it closes. Just restart it and your loaded file should be there.
-As a side note: This is actually easy to fix, but a little bit annoying to test/debug. Should this become a major issue, I'll see about it.
 
 - The program seems to be assume closed forest and portal. How do I change that?
 Change the 'Rules string' setting. Take the 'Setting String' from the randomiser GUI and paste it here. You should probably make sure that the string you use is the same as the one used to patch your game (or at least that you know the differences). Then restart the program.
+A note regarding Door of Time: Availability of adult locations is linked to possession of Master Sword, not being able to access its pedestal. There is no automatism in place to link these two, so you will have to click Master Sword manually in order to allow the map to display adult item locations.
 
 - Will you support scrubshuffle/shopsanity/skullsanity in the future?
 Scrubshuffle and shopsanity should already be available -- all related item locations exist to my knowledge. You have to adjust the 'Rules string' option and mark the settings to show all scrubs/shops. This is, however, even less well tested than normal mode.
-As for skullsanity, skulltula locations are already available. I don't see much point in creating a special display mode that puts skulltullas and normal item locations on the same map. The only real issue is that dungeon icon colours only consider normal items and ignore skulltulas and item counting does so, too. Since I don't intend to play skullsanity in the near-future, I don't plan to fix this on my own for now.
+As for skullsanity, skulltula locations are already available. The only real issue might be that dungeon icon colours only consider normal items and ignore skulltulas, and item counting does so, too. Since I don't intend to play skullsanity in the near-future, I don't plan to fix this on my own for now.
 
 - Master Quest?
 I've never played anything but the original N64 release of Zelda 5. I therefore do not know anything about Master Quest. That said, supporting it shouldn't be too hard. If somebody can provide me with images of those dungeons and the pixel coordinates of item locations, I would be willing to include them.
 
 - Why does this program open so many windows?
-I chose a multi-window layout to give flexibility to the program layout. I understand that especially the window manager in Windows makes multi-window programs rather inconvenient to use. It wouldn't be too hard to create a single-window option. But in such an environment, element placement would have to be fixed. In any case, not something with high priority.
+I chose a multi-window layout to give flexibility to the program layout. I understand that especially the window manager in Windows makes multi-window programs rather inconvenient to use. It wouldn't be too hard to create a single-window option. But in such an environment, element placement would have to be fixed (anything else would mean disproportionate amount of work on an option I'd never use). In any case, not something with high priority.
 
 - Why does the program look so ugly?
 Well, I can't really refute that statement. In all honesty, I'm not really at home in user-space programming and even much less so with regards to (graphical) user interfaces. In the end, the main issue people might have with the program's appearance comes down to me using Tk. I use Tk because it is the one GUI toolkit that is always available in standard Python installations and because I care more about functionality than looks.
 
 - Is there a way to make the maps larger?
-Not at the moment, although I can see why this might be an issue. I might include zoom options with fixed values if really needed.
+You can edit the 'Map size' option. Just put in any number you want. Note that using very small values will probably cause issues. Also note that this option has a direct impact on computing required to open any map. Good numbers in this regard are 0.25, 0.5, 1, 2, ...
 
 - An item location is shown as unavailable, but I know a trick/glitch to reach it anyway. Wouldn't it be possible to somehow show it as available?
-This program doesn't include any location ruleset of its own (except for Gossip Stones). While it would be possible to include an extra database for glitched locations, you'd immediately would have to ask which sort of glitch should be included and which not. This heavily depends on the player's skill level (or, in the case of the chest game, willingness to spend a lot of money). In the end, I believe that players knowing such glitches don't need a map to remind them of their existence.
+This program doesn't include any location ruleset of its own. While it would be possible to include an extra database for glitched locations, you'd immediately would have to ask which sort of glitch should be included and which not. This heavily depends on the player's skill level (or, in the case of the chest game, willingness to spend a lot of money). In the end, I believe that players knowing such glitches don't need a map to remind them of their existence.
+Remember: It is always possible to adjust the 'Rules string' setting to include certain locations.
 
 - An item location is shown as available on the child/adult map but I don't have the necessary equipment to reach it at that age? (E.g. Tektite Grotto is shown as available on the child map with Iron Boots but without Gold Scale.)
-This is unfortunately a limitation of the randomiser ruleset. The map only marks if a location is reachable at any age, not the age specific to the map. There also isn't an easy way to fix this. While it would be possible to completely fix the child map, the randomiser does not offer any way to remove child-only locations from logic. This means that a location like the heart piece in a crate in Gerudo Valley cannot be easily fixed for the adult map without major manual intervention. I therefore have the choice to fix it partally, or not at all. To remain consistent, I chose not to fix it at all.
-There would be two ways to solve this: The randomiser could start to include a check whether child age is available, which probably will not happen unless it receives some sort of inverted mode where you start as adult. The other way would be to build up some sort of item requirement database in parallel to the randomiser rules (like has happened for Gossip Stones). If this really becomes an issue, I might consider that and hope that it doesn't affect too many locations.
-
-- Why is Ganon's Tower shown as available, despite not meeting the requirements?
-This is a bug and I don't know how to fix it at the moment. The problem seems to be the 'Rainbow Bridge' entrance which needs requirements to be set. But for some reason that doesn't seem to happen. Until I find out what I'm doing wrong here this will have to remain unresolved.
+This is unfortunately a limitation of the randomiser ruleset. The map only marks if a location is reachable at any age, not the age specific to the map. There also isn't an easy way to fix this. While it would be possible to completely fix the child map, the randomiser does not offer any way to remove child-only locations from logic. This means that a location like the heart piece in a crate in Gerudo Valley cannot be easily fixed for the adult map without major manual intervention. I therefore have the choice to fix it partially, or not at all. To remain consistent, I chose not to fix it at all.
+There would be two ways to solve this: The randomiser could start to include a check whether child age is available, which probably will not happen unless it receives some sort of inverted mode where you start as adult. The other way would be to build up an item requirement database in parallel to the randomiser rules. Obviously, the latter would be a pretty ambitious undertaking.
 
 - Why aren't skulltula item locations marked as available despite having the necessary tokens?
 You probably have entered rules in the settings which excludes requiring a set amount of skulltullas (or any). Locations which have been disabled in the randomiser rules will never show up as available.
 
 - There are a lot of skulltulas marked as unavailable despite clearly having access to them.
 Is the option that nighttime skulltulas require Sun Song enabled? This will have exactly this effect. Remember that it is always possible to set a rules string different from the one used to created the randomised game in order to adjust the location display to one's needs.
+
+- There are Gossip Stones missing at Temple of Time and in the Sacred Meadow maze.
+I assume that anybody checking these will check all four/two of them, so I only placed a single stone for both locations.
 
 - Does marking the Stone of Agony have any effect?
 No.
@@ -82,9 +83,10 @@ At time of writing, this is a limitation. Just click the button three more times
 I might fix this by replacing the button with a single 'all carpenters rescued' one.
 
 - Why does a dungeon show as only partially available despite me having all required items?
-The rules consider keys, even if keys are not shuffled with overworld items. If you wish to remove that effect, just mark all small and big keys.
+The rules consider keys, even if keys are not shuffled with overworld items. If you wish to remove that effect, just mark all small and big keys. Be aware however that this might incorrectly mark locations as available when in truth key-layout prohibits reaching them. So only start clicking at keys if a dungeon has at least one location available without.
+I might implement some automatic check to address this issue.
 
-- Something is wrong with the key count at Fire Temple. It seems I always need one key too many for each location.
+- Something is wrong with the key count at Fire Temple/Water Temple. It seems I always need one key too many for each location.
 This a result of one locked door having been removed. The randomiser rules internally deal with this by adding one key to the inventory by default. For the time being, just add another small key.
 
 - Shadow and Spirit Temple/Medallions are in the wrong order.
@@ -94,7 +96,7 @@ No, they are not. They are exactly in their natural order, which is as they are 
 Because there aren't any better icons. The buttons for Ruto's letter and Big Poes therefore show a bottle. Marking them has no effect on the rules regarding bottles -- you will have to click the bottle icon, too.
 
 - Will you support TestrunnerSRL's randomiser fork?
-At the time of writing, I consider that fork a development branch. Therefore, I cannot support it. That said, you can always try and copy the files called 'BaseClass.py', 'EntranceShuffle.py', 'Items.py', 'Regions.py', 'Rules.py' and 'Settings.py' from there, drop them into 'z5tracker/rulesets' and hope that nothing breaks. If it does, the program will possibly not crash outright, but stop working correctly. Just monitor your shell for any error messages -- if you see any, something is wrong.
+Given that a lot of people now consider this fork 'official', I do follow suit. I will, however, only support the master branch. If you wish compatibility with a development version, you can always add a ruleset package yourself. However, be aware that you have to edit the import lines, since unlike z5-tracker, the randomiser is not packaged.
 
 - The item location names seem to miss apostrophes.
 The names used are precisely the same as the ones in the spoiler log. I believe everybody will be happier if I don't invent another set of location names.
@@ -108,10 +110,10 @@ Maybe? If you have any suggestions, contact me.
 
 
 Contact:
-My Github repository is probably the best way to reach me. I'll try to check it regularly.
+My Github repository is probably the best way to reach me. I'll try to check it regularly. I am also around on the newly created Reddit (r/zootr).
 
 Credits:
 I'd like to credit hamsda and his Zelda 5 tracker for a lot of inspirations. In fact, many of the location positions are strongly influenced by his database. And to top it off, most of the icons I use are from his repository.
 There is also crossproduct's tracker for Zelda 3, which provided additional inspiriation. I've never understood the existence of trackers while playing Zelda 3, but I finally came to appreciate them in Zelda 5.
 Then there is the wonderful individual under the name Peardian, who has created these gorgeous dungeon maps I am using. I consider his work to be the best maps for Ocarina of Time out there, so check them out at 'www.vgmaps.com/Atlas/N64/index.htm#LegendOfZeldaOcarinaOfTime'.
-And finally of course, the whole team behind AmazingAmpharos' Zelda 5 randomiser. Not only is this program specifically written for it, I also re-use several files from their source code.
+And finally of course, the whole team behind AmazingAmpharos' Zelda 5 randomiser. Not only is this program specifically written for it, I also re-use several files from their source code. (Just no more big overhauls like the one when moving from version 3 to 4, please!)

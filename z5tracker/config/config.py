@@ -6,7 +6,9 @@ import json
 import os
 import typing
 
-from .default import DEFAULT
+from ..version import __version__ as version
+
+from .default import DEFAULT, OVERWRITE
 
 
 __all__ = 'Config',
@@ -46,7 +48,7 @@ class Config(dict):
     Instance variables:
         filename: full path to config filename
         scheme: config file layout
-        changed
+        _changed: True if config has changed and should be saved
     '''
 
     def __init__(self):
@@ -72,6 +74,7 @@ class Config(dict):
             self._insert_entry(entry, imp_dict[entry])
         self._check_missing()
 
+        self.set('version', version)
         self.__setitem__ = self._change_entry
 
     def _get_scheme(self) -> None:
@@ -102,6 +105,7 @@ class Config(dict):
             scheme = self.scheme[entry_name]
         except KeyError:
             self._changed = True
+            return
 
         self[scheme.name] = scheme.valtype(entry_value)
 
@@ -115,6 +119,11 @@ class Config(dict):
             self
         '''
 
+        if 'version' not in self or self['version'] != version:
+            for entry in OVERWRITE[version]:
+                print(entry)
+                self[entry] = self.scheme[entry].default
+                self._changed = True
         for entry in self.scheme:
             if entry not in self:
                 self[entry] = self.scheme[entry].default

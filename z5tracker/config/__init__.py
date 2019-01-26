@@ -3,7 +3,9 @@ Program configuration infrastructure.
 '''
 
 from . import config
+from . import globals
 
 __all__ = 'CONFIG',
 
-CONFIG = config.Config()
+globals.CONFIG = config.Config()
+CONFIG = globals.CONFIG

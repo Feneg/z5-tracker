@@ -18,6 +18,7 @@ from .. import world as location_tracker
 
 from . import config
 from . import dungeons as dungeon_gui
+from . import hints
 from . import items as item_gui
 from . import maps
 from . import menu
@@ -66,6 +67,7 @@ class GraphicalInterface(object):
             'skullmap_c': self._open_skullmap,
             'skullmap_a': self._open_skullmap,
             'dungeons': self._open_dungeons,
+            'hints': self._open_hints,
             'config': self._open_config,
             'load': self._load,
             'save': self._save,
@@ -81,6 +83,7 @@ class GraphicalInterface(object):
             'skullmap_a': None,
             'dungeons': None,
             'config': None,
+            'hints': None,
             }
 
         self._restore_windows()
@@ -112,6 +115,8 @@ class GraphicalInterface(object):
         '''
 
         window_layout.save(self._window_layout())
+        for window in self.windows:
+            self.windows[window].withdraw()
         self.gui_app.quit()
 
     def _restart(self) -> None:
@@ -190,6 +195,9 @@ class GraphicalInterface(object):
             lambda: dungeon_gui.DungeonWindow(
                 dungeon_tracker.DungeonTracker(self.location_tracker)))
 
+    def _open_hints(self) -> None:
+        self._open_window('hints', lambda: hints.HintDisplay())
+
     def _window_layout(self) -> dict:
         '''
         Return current position of all windows.
@@ -251,4 +259,5 @@ class GraphicalInterface(object):
         path = filedialog.askopenfilename(defaultextension='.json')
         if path:
             storage.restore_autosave(path)
-        self.quit()
+            self.restart.set()
+            self.quit()

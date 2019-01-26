@@ -1,0 +1,4 @@
+include z5tracker/images/*
+include z5tracker/rulesets/rando_aa_v4/data/*
+include z5tracker/rulesets/rando_aa_v4/data/generated/*
+include z5tracker/rulesets/rando_aa_v4/data/World/*

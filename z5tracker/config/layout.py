@@ -7,7 +7,9 @@ import json
 import os
 import typing
 
-from .__init__ import CONFIG
+from ..version import __version__ as version
+
+from .globals import CONFIG
 from . import config
 
 __all__ = ('NoConfig', 'load', 'new', 'autosave', 'save', 'load_save',
@@ -46,6 +48,13 @@ def load(ltype: str) -> dict:
         fid.close()
     if ltype not in inp:
         raise NoConfig()
+    try:
+        if inp['version']['version'] != version:
+            raise NoConfig()
+    except (KeyError, configparser.NoSectionError,
+            configparser.NoOptionError) as err:
+        if version != version:
+            raise NoConfig() from err
 
     layout = {}
     for item in inp[ltype]:
@@ -91,13 +100,14 @@ def autosave(ltype: str, tracker) -> None:
     Perform autosave.
 
     Args:
-        ltype: 'Items' or 'Dungeons' or starting with 'Maps,'
+        ltype: 'Items' or 'Dungeons', 'Hints' or starting with 'Maps,'
         tracker: tracker providing info
     '''
 
     autosavefile = os.path.join(config.config_directory(), CONFIG['autosave'])
     save = load_save()
     save[ltype] = tracker.store()
+    save['version'] = version
     with open(autosavefile, 'w') as fid:
         json.dump(save, fid)
 
@@ -119,6 +129,7 @@ def save(trackers: dict, filepath: str) -> None:
             to_store[dtype] = {}
             for mtype in trackers[dtype].gui:
                 to_store[dtype][mtype.identifier] = mtype.store()
+    to_store['version'] = version
     with open(filepath, 'w') as fid:
         json.dump(to_store, fid)
 
@@ -131,7 +142,7 @@ def load_save(filepath: str = os.path.join(
     Args:
         filepath: full path to file to load
     Return:
-        dict: save data, if tracker isn't given
+        dict: save data
     Raises:
         FileNotFoundError: if file doesn't exist (unless it's the autosave)
     '''
@@ -151,6 +162,13 @@ def load_save(filepath: str = os.path.join(
         data = {}
     finally:
         fid.close()
+
+    try:
+        if data['version'] != version:
+            data = {}
+    except KeyError:
+        if version != '1.0.0':
+            data = {}
 
     return data
 

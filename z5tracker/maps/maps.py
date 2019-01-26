@@ -2,7 +2,7 @@
 Location mapping database.
 '''
 
-__all__ = 'ITEMLOCATIONS', 'SKULLTULALOCATIONS', 'STONELOCATIONS'
+__all__ = 'ITEMLOCATIONS', 'SKULLTULALOCATIONS'
 
 
 ITEMLOCATIONS = {
@@ -607,13 +607,11 @@ ITEMLOCATIONS = {
         'maps': ('item_child', 'item_adult'),
         'coordinates': (560, 2052),
         'type': 'deku',
-        'restriction': 'scrubshuffle',
         'restriction': 'scrubshuffle'},
     "ZR Grotto Deku Scrub Green Potion": {
         'maps': ('item_child', 'item_adult'),
         'coordinates': (580, 2012),
         'type': 'deku',
-        'restriction': 'scrubshuffle',
         'restriction': 'scrubshuffle'},
     "LH Grotto Deku Scrub Deku Nuts": {
         'maps': ('item_child', 'item_adult'),
@@ -1379,7 +1377,7 @@ ITEMLOCATIONS = {
         'maps': ('Ganons Castle',),
         'coordinates': (1650, 990),
         'type': 'chest'},
-    "Ganons Castle Light Trail Invisible Enemies Chest": {
+    "Ganons Castle Light Trial Invisible Enemies Chest": {
         'maps': ('Ganons Castle',),
         'coordinates': (1750, 1120),
         'type': 'chest'},
@@ -1400,8 +1398,123 @@ ITEMLOCATIONS = {
     "Ganon": {
         'maps': ('item_adult',),
         'coordinates': (50, 1440),
-        'type': 'ganon'}
+        'type': 'ganon'},
+
+    # Gossip stones
+    'Kokiri Forest Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (890, 2095),
+        'type': 'stone'},
+    'Deku Tree Gossip Stone (Left)': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (790, 2400),
+        'type': 'stone'},
+    'Deku Tree Gossip Stone (Right)': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (840, 2550),
+        'type': 'stone'},
+    'Sacred Forest Meadow Maze Gossip Stone (Lower)': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (670, 2180),
+        'type': 'stone'},
+    'Sacred Forest Meadow Saria Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (620, 2120),
+        'type': 'stone'},
+    'Lost Woods Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (940, 1930),
+        'type': 'stone'},
+    'Temple of Time Gossip Stone (Left)': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (320, 1543),
+        'type': 'stone'},
+    'Hyrule Castle Malon Gossip Stone': {
+        'maps': ('item_child',),
+        'coordinates': (270, 1465),
+        'type': 'stone'},
+    'Hyrule Castle Rock Wall Gossip Stone': {
+        'maps': ('item_child',),
+        'coordinates': (210, 1360),
+        'type': 'stone'},
+    'Castle Storms Grotto Gossip Stone': {
+        'maps': ('item_child',),
+        'coordinates': (196, 1520),
+        'type': 'stone'},
+    'Graveyard Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (380, 2150),
+        'type': 'stone'},
+    'Goron City Medigoron Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (158, 1606),
+        'type': 'stone'},
+    'Goron City Maze Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (50, 1636),
+        'type': 'stone'},
+    'Dodongos Cavern Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (230, 1700),
+        'type': 'stone'},
+    'Death Mountain Trail Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (140, 1790),
+        'type': 'stone'},
+    'Death Mountain Crater Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (105, 1830),
+        'type': 'stone'},
+    'Zoras River Plateau Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (470, 2100),
+        'type': 'stone'},
+    'Zoras River Waterfall Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (470, 2400),
+        'type': 'stone'},
+    'Zoras Domain Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (373, 2590),
+        'type': 'stone'},
+    'Lake Hylia Lab Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (1220, 870),
+        'type': 'stone'},
+    'Lake Hylia Gossip Stone (Southwest)': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (1520, 930),
+        'type': 'stone'},
+    'Lake Hylia Gossip Stone (Southeast)': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (1520, 1190),
+        'type': 'stone'},
+    'Zoras Fountain Jabu Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (359, 2510),
+        'type': 'stone'},
+    'Zoras River Plateau Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (313, 2593),
+        'type': 'stone'},
+    'Field Valley Grotto Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (680, 950),
+        'type': 'stone'},
+    'Gerudo Valley Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (530, 661),
+        'type': 'stone'},
+    'Desert Colossus Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (370, 50),
+        'type': 'stone'},
+    'Generic Grotto Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (1200, 480),
+        'type': 'stone'}
 }
+
 
 SKULLTULALOCATIONS = {
     "GS Kokiri Know It All House": {
@@ -1804,148 +1917,4 @@ SKULLTULALOCATIONS = {
         'maps': ('Ice Cavern',),
         'coordinates': (290, 1180),
         'type': 'spider'},
-}
-
-
-STONELOCATIONS = {
-    'Gossip Stone in Kokiri Forest': {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (890, 2095),
-        'access': 'Kokiri Forest',
-        'requirements': ()},
-    'Gossip Stone behind the Deku Tree': {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (790, 2400),
-        'access': 'Deku Tree Lobby',
-        'requirements': ()},
-    'Gossip Stone well hidden behind the Deku Tree': {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (840, 2550),
-        'access': 'Deku Tree Lobby',
-        'requirements': ()},
-    'Gossip Stones above the Sacred Meadow maze': {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (670, 2180),
-        'access': 'Sacred Forest Meadow',
-        'requirements': ()},
-    'Gossip Stone in front of Forest Temple': {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (620, 2120),
-        'access': 'Sacred Forest Meadow',
-        'requirements': ()},
-    'Gossip Stone under the bridge': {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (940, 1930),
-        'access': 'Lost Woods',
-        'requirements': ()},
-    'Gossip Stones in front of Temple of Time': {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (320, 1543),
-        'access': 'Castle Town',
-        'requirements': ()},
-    'Gossip Stone in view of Hyrule Castle': {
-        'maps': ('item_child',),
-        'coordinates': (270, 1465),
-        'access': 'Hyrule Castle Grounds',
-        'requirements': ()},
-    'Gossip Stone in front of Hyrule Castle': {
-        'maps': ('item_child',),
-        'coordinates': (210, 1360),
-        'access': 'Hyrule Castle Grounds',
-        'requirements': ()},
-    'Gossip Stone below Hyrule Castle': {
-        'maps': ('item_child',),
-        'coordinates': (196, 1520),
-        'access': 'Castle Storms Grotto',
-        'requirements': ()},
-    'Gossip Stone in front of Shadow Temple': {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (380, 2150),
-        'access': 'Shadow Temple Warp Region',
-        'requirements': ()},
-    "Gossip Stone in Medigoron's shop": {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (158, 1606),
-        'access': 'Goron Shop',
-        'requirements': ()},
-    "Gossip Stone in the Goron's larder": {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (50, 1636),
-        'access': 'Goron City',
-        'requirements': ('has_explosives',)},
-    "Gossip Stone in Dodongo's Cavern": {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (230, 1700),
-        'access': 'Dodongos Cavern Lobby',
-        'requirements': ()},
-    'Gossip Stone while ascending Death Mountain': {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (140, 1790),
-        'access': 'Death Mountain Crater Upper',
-        'requirements': ()},
-    "Gossip Stone in Death Mountain's Crater": {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (105, 1830),
-        'access': 'Death Mountain Crater Upper',
-        'requirements': ('has_explosives',)},
-    "Gossip Stone along Zora's River": {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (470, 2100),
-        'access': 'Zora River Shared',
-        'requirements': ()},
-    "Gossip Stone at the entrance to Zora's Domain": {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (470, 2400),
-        'access': 'Zora River Shared',
-        'requirements': ()},
-    'Gossip Stone in front of King Zora': {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (373, 2590),
-        'access': 'Zoras Domain',
-        'requirements': ()},
-    'Gossip Stone north of Lake Hylia': {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (1220, 870),
-        'access': 'Lake Hylia',
-        'requirements': ()},
-    'Gossip Stone in southwest Lake Hylia': {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (1520, 930),
-        'access': 'Lake Hylia',
-        'requirements': ()},
-    'Gossip Stone in southeast Lake Hylia': {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (1520, 1190),
-        'access': 'Lake Hylia',
-        'requirements': ()},
-    "Gossip Stone at the entrance to Zora's Fountain": {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (359, 2510),
-        'access': 'Zoras Fountain',
-        'requirements': ()},
-    "Gossip Stone in front of Zora's Fountain fairy": {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (313, 2593),
-        'access': 'Zoras Fountain',
-        'requirements': ()},
-    'Gossip Stone on the way to Gerudo Valley': {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (680, 950),
-        'access': 'Field Valley Grotto',
-        'requirements': ('has_fire_source',)},
-    'Gossip Stone at the bottom of Gerudo Valley': {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (530, 661),
-        'access': 'Gerudo Valley',
-        'requirements': ()},
-    'Gossip Stone in the desert': {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (370, 50),
-        'access': 'Desert Colossus',
-        'requirements': ()},
-    'Gossip Stone in a grotto': {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (1200, 480),
-        'access': 'Kokiri Forest',
-        'requirements': ()}
 }

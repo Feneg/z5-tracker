@@ -36,11 +36,12 @@ class MenuWindow(tk.Toplevel):
                 (0, 1), commands['itemmap'], 'Item Map'),
             'skullmap': self._make_button(
                 (1, 1), commands['skullmap'], 'Skulltula Map'),
-            'config': self._make_button((0, 2), commands['config'], 'Options'),
-            'load': self._make_button((0, 3), commands['load'], 'Load'),
-            'save': self._make_button((1, 3), commands['save'], 'Save'),
-            'quit': self._make_button((0, 4), commands['quit'], 'Quit'),
-            'reset': self._make_button((1, 4), commands['itemreset'], 'Reset'),
+            'hints': self._make_button((1, 2), commands['hints'], 'Hints'),
+            'config': self._make_button((0, 3), commands['config'], 'Options'),
+            'load': self._make_button((0, 4), commands['load'], 'Load'),
+            'save': self._make_button((1, 4), commands['save'], 'Save'),
+            'quit': self._make_button((0, 5), commands['quit'], 'Quit'),
+            'reset': self._make_button((1, 5), commands['itemreset'], 'Reset'),
             }
 
     def _make_button(

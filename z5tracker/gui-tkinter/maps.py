@@ -11,7 +11,7 @@ from ..config import CONFIG
 from ..config import layout as storage
 from ..dungeons.lists import INFO as DUNGEONLOCATIONS
 from ..items import image
-from ..maps import ITEMLOCATIONS, STONELOCATIONS, SKULLTULALOCATIONS
+from ..maps import ITEMLOCATIONS, SKULLTULALOCATIONS
 from ..maps.info import MAPSCALE, MAPSPEC, BUTTONTYPE
 from .. import world
 
@@ -27,6 +27,7 @@ class MapDisplay(tk.Toplevel):
     Instance variables:
         identifier: map name
         spec: map properties
+        scale: map size
         buttons: item location buttons
         links: linked maps
         tracker: location tracker
@@ -48,12 +49,15 @@ class MapDisplay(tk.Toplevel):
         super().__init__()
         self.identifier = spec
         self.spec = MAPSPEC[spec]
+        self.scale = CONFIG['map_size']
         self.title(self.spec['title'])
         self.parent = parent
 
         # Set up bottom text label.
         self.helpertext = tk.StringVar()
-        self.helper = ttk.Label(self, textvariable=self.helpertext)
+        self.helper = ttk.Label(
+            self, textvariable=self.helpertext,
+            font=('Arial', int(12 * self.scale)))
         self.helper.grid(column=0, row=1, sticky=tk.S)
 
         # Set map type.
@@ -66,13 +70,24 @@ class MapDisplay(tk.Toplevel):
 
         # Set background image.
         imagefile = tk.PhotoImage(file=image(mapimage)[0], master=self)
-        imgdim = (imagefile.width() * MAPSCALE * self.spec['mapscale'],
-                  imagefile.height() * MAPSCALE * self.spec['mapscale'])
+        imgdim = (
+            imagefile.width() * MAPSCALE * self.scale * self.spec['mapscale'],
+            imagefile.height() * MAPSCALE * self.scale * self.spec['mapscale'])
         self.m = tk.Canvas(self, height=imgdim[1], width=imgdim[0])
         self.m.grid(column=0, row=0, sticky=misc.A)
-        imagefile = imagefile.subsample(
-            int(1 / MAPSCALE / self.spec['mapscale']),
-            int(1 / MAPSCALE / self.spec['mapscale']))
+        scaling = MAPSCALE * self.scale * self.spec['mapscale']
+        for up in range(1, 1000):
+            if not (scaling * up) % 1:
+                upscale = int(scaling * up)
+                break
+        else:
+            CONFIG.set('map_size', 1)
+            assert False
+        downscale = int(upscale // scaling)
+        if upscale != 1:
+            imagefile = imagefile.zoom(upscale, upscale)
+        if downscale != 1:
+            imagefile = imagefile.subsample(downscale, downscale)
         self.image = self.m.create_image((0, 0), anchor=tk.NW, image=imagefile)
         self.imagefile = imagefile
 
@@ -92,25 +107,19 @@ class MapDisplay(tk.Toplevel):
                      and not CONFIG['show_shops'])):
                     continue
             if spec in button['maps']:
-                coord = list(int(c * MAPSCALE * self.spec['mapscale'])
-                             for c in button['coordinates'])
+                coord = list(
+                    int(c * MAPSCALE * self.scale * self.spec['mapscale'])
+                    for c in button['coordinates'])
                 coord.reverse()
                 self.add_button(b, coord, button['type'])
-        for b in STONELOCATIONS:
-            button = STONELOCATIONS[b]
-            for m in button['maps']: assert m in MAPSPEC
-            if spec in button['maps']:
-                coord = list(int(c * MAPSCALE * self.spec['mapscale'])
-                             for c in button['coordinates'])
-                coord.reverse()
-                self.add_button(b, coord, 'stone')
         for b in SKULLTULALOCATIONS:
             button = SKULLTULALOCATIONS[b]
             for m in button['maps']:
                 assert m in MAPSPEC
             if spec in button['maps']:
-                coord = list(int(c * MAPSCALE * self.spec['mapscale'])
-                             for c in button['coordinates'])
+                coord = list(
+                    int(c * MAPSCALE * self.scale * self.spec['mapscale'])
+                    for c in button['coordinates'])
                 coord.reverse()
                 self.add_button(b, coord, button['type'])
         for b in DUNGEONLOCATIONS:
@@ -125,8 +134,9 @@ class MapDisplay(tk.Toplevel):
                      and not CONFIG['show_shops'])):
                     continue
             if spec in button['maps']:
-                coord = list(int(c * MAPSCALE * self.spec['mapscale'])
-                             for c in button['location'])
+                coord = list(
+                    int(c * MAPSCALE * self.scale * self.spec['mapscale'])
+                    for c in button['location'])
                 coord.reverse()
                 self.add_button(b, coord, 'dungeon')
 
@@ -245,14 +255,7 @@ class MapDisplay(tk.Toplevel):
         colours = BUTTONTYPE[self.buttons[name]['type']]['colours']
         new = not mapdisplay.buttons[name]['state']
         if new:
-            if self.buttons[name]['type'] == 'stone':
-                nc = self.tracker.check_access(STONELOCATIONS[name]['access'])
-                nc &= all(
-                    self.tracker.check_rule(
-                        operator.methodcaller(req)) for req in
-                    STONELOCATIONS[name]['requirements'])
-                nc = 'on' if nc else 'unavailable'
-            elif self.buttons[name]['type'] == 'dungeon':
+            if self.buttons[name]['type'] == 'dungeon':
                 assert False  # Never should be here.
             else:
                 nc = self.available[name]
@@ -289,15 +292,7 @@ class MapDisplay(tk.Toplevel):
         self._update_availability()
         for button in self.buttons:
             if self.buttons[button]['state']:
-                if self.buttons[button]['type'] == 'stone':
-                    nc = self.tracker.check_access(
-                        STONELOCATIONS[button]['access'])
-                    nc &= all(
-                        self.tracker.check_rule(
-                            operator.methodcaller(req)) for req in
-                        STONELOCATIONS[button]['requirements'])
-                    nc = 'on' if nc else 'unavailable'
-                elif self.buttons[button]['type'] == 'dungeon':
+                if self.buttons[button]['type'] == 'dungeon':
                     buttonchildren = self.tracker.dungeon_locations(button)
                     buttonchildren = (
                         buttonchildren[0] if self.identifier.startswith('item_')
@@ -538,7 +533,7 @@ def _make_symbol_coordinates(
     '''
 
     loc = list(location[:2]) * (len(shape) // 2)
-    scaled = tuple(int(c * MAPSCALE) for c in shape)
+    scaled = tuple(int(c * MAPSCALE * CONFIG.get('map_size')) for c in shape)
     loc = [loc[l] + scaled[l] for l in range(len(scaled))]
     return loc
 
