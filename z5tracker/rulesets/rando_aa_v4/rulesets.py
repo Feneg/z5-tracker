@@ -93,13 +93,15 @@ class Ruleset(object):
         listing = self.items if loctype == 'item' else self.skulls
         return list(listing.keys())
 
-    def location_available(self, name: str, loctype: str) -> bool:
+    def location_available(
+            self, name: str, loctype: str, state: state.State = None) -> bool:
         '''
         Check whether given item location is available.
 
         Args:
             name: name of item location
             loctype: 'item' or 'skulltula'
+            state: if given, use this state instead of default one
         Returns:
             bool: True if location is available
         '''
@@ -108,14 +110,44 @@ class Ruleset(object):
         listing = self.items if loctype == 'item' else self.skulls
         if isinstance(listing[name], regions.Region):
             available = all(
-                location.can_reach(self.state)
+                location.can_reach(self.state if state is None else state)
                 for location in listing[name].locations)
         else:
             try:
-                available = listing[name].can_reach(self.state)
+                available = listing[name].can_reach(
+                    self.state if state is None else state)
             except AttributeError:
                 available = False
 
+        return available
+
+    def dungeon_available(self, name: str, loctype: str) -> str:
+        '''
+        Check to which degree dungeon is clearable.
+
+        This assumes that all keys are available. It hence only checks for
+        required items.
+
+        Args:
+            dungeonname: name of dungeon
+            itemtype: 'item' or 'skulltula'
+        Returns:
+            bool: True of all locations are available with all keys
+        '''
+
+        skeyname = 'Small Key ({0:s})'.format(name)
+        bkeyname = 'Boss Key ({0:s})'.format(name)
+        info = self.dungeon_info(name)
+        fullstate = self.state.copy()
+        if fullstate.world.shuffle_smallkeys == 'dungeon':
+            fullstate.prog_items[skeyname] = info['keys']
+        if info['bosskey'] and fullstate.world.shuffle_smallkeys == 'dungeon':
+            fullstate.prog_items[bkeyname] = 1
+        fullstate.clear_cached_unreachable()
+        locs = self.dungeon_locations(name)
+        locs = locs[0] if loctype == 'item' else locs[1]
+        listing = self.items if loctype == 'item' else self.skulls
+        available = all(listing[l].can_reach(fullstate) for l in locs)
         return available
 
     def add_item(self, itemname: str) -> None:
@@ -146,7 +178,8 @@ class Ruleset(object):
             bool: True if adult items are available
         '''
 
-        return self.state.is_adult()
+        return (self.state.is_adult() or
+                self.location_available('Master Sword Pedestal', 'item'))
 
     def check_rule(self, rule: operator.methodcaller) -> bool:
         '''

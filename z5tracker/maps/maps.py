@@ -1579,7 +1579,7 @@ SKULLTULALOCATIONS = {
         'type': 'night'},
     "GS Gerudo Fortress Top Floor": {
         'maps': ('skulls_adult',),
-        'coordinates': (390, 544),
+        'coordinates': (375, 544),
         'type': 'night'},
     "GS Wasteland Ruins": {
         'maps': ('skulls_adult',),
@@ -1603,7 +1603,7 @@ SKULLTULALOCATIONS = {
         'type': 'tree'},
     "GS Outside Ganon's Castle": {
         'maps': ('skulls_adult',),
-        'coordinates': (206, 1479),
+        'coordinates': (206, 1490),
         'type': 'spider'},
     "GS Castle Market Guard House": {
         'maps': ('skulls_child',),

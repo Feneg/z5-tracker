@@ -100,7 +100,8 @@ BUTTONTYPE['spider'] = {
     'colours': {
         'on': {'active': '#ff0', 'normal': '#f80'},
         'off': {'active': '#aaa', 'normal': 'grey'},
-        'unavailable': {'active': '#f0f','normal': '#c0a'}},
+        'unavailable': {'active': '#f0f','normal': '#c0a'},
+        'partial': {'active': '#ff0', 'normal': '#cc0'}},
     'shape': lambda self, location: self._standard_icon(location)}
 BUTTONTYPE['night'] = {
     'colours': BUTTONTYPE['spider']['colours'],

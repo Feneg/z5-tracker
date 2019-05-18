@@ -1,3 +1,9 @@
+1.2.0
+
+- dungeon availability check
+- dungeon buttons on skulltula maps
+- Windows-specific config folder
+
 1.1.1
 - fix crash on first start-up
 

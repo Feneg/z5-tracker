@@ -82,6 +82,22 @@ class LocationTracker(object):
                 location, loctype)
         return available
 
+    def dungeon_availability(self, dungeonname: str, loctype: str) -> str:
+        '''
+        Check to which degree dungeon is clearable.
+
+        This assumes that all keys are available. It hence only checks for
+        required items.
+
+        Args:
+            dungeonname: name of dungeon
+            itemtype: 'item' or 'skulltula'
+        Returns:
+            bool: True of all locations are available with all keys
+        '''
+
+        return self.rules.dungeon_available(dungeonname, loctype)
+
     def add_item(self, itemname: str) -> None:
         '''
         Add item to current inventory.

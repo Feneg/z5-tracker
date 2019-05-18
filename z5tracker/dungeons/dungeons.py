@@ -27,8 +27,6 @@ def get_layout() -> dict:
 
     try:
         layout = storage.load('Dungeons')
-        if 'Dungeons' not in layout or 'Items' not in layout:
-            raise storage.NoConfig()
     except (storage.NoConfig, configparser.Error):
         layout = {}
         layout['Dungeons'] = {}

@@ -177,6 +177,9 @@ class MapDisplay(tk.Toplevel):
         '''
 
         buttontype = display.buttons[button]['type']
+        if buttontype == 'dungeon':
+            if self.identifier.startswith('skulls_'):
+                buttontype = 'spider'
         display.m.itemconfigure(
             display.buttons[button]['id'],
             activefill=BUTTONTYPE[buttontype]['colours'][colour]['active'],
@@ -293,32 +296,7 @@ class MapDisplay(tk.Toplevel):
         for button in self.buttons:
             if self.buttons[button]['state']:
                 if self.buttons[button]['type'] == 'dungeon':
-                    buttonchildren = self.tracker.dungeon_locations(button)
-                    buttonchildren = (
-                        buttonchildren[0] if self.identifier.startswith('item_')
-                        else buttonchildren[1])
-                    try:
-                        childbuttons = self._load_autosave(button)
-                    except KeyError:
-                        childbuttons = {}
-                        for child in buttonchildren:
-                            childbuttons[child] = True
-                    finally:
-                        children = []
-                        for child in buttonchildren:
-                            try:
-                                if childbuttons[child]:
-                                    children.append(self.available[child])
-                            except KeyError:
-                                pass
-                            if not children:
-                                nc = 'off'
-                            elif all(children):
-                                nc = 'on'
-                            elif any(children):
-                                nc = 'partial'
-                            else:
-                                nc = 'unavailable'
+                    nc = self.update_dungeon(button)
                 else:
                     nc = self.available[button]
                     nc = 'on' if nc else 'unavailable'
@@ -328,6 +306,49 @@ class MapDisplay(tk.Toplevel):
                     self._set_colour(button, nc, self)
                 except tk.TclError as err:
                     raise world.DisplayGone() from err
+
+    def update_dungeon(self, dungeonbutton: dict) -> str:
+        '''
+        Check supposed display state of dungeon button.
+
+        Args:
+            dungeonbutton: dungeon location
+        Returns:
+            str: 'off', 'on', 'partial' or 'unavailable'
+        '''
+
+        buttonchildren = self.tracker.dungeon_locations(dungeonbutton)
+        buttonchildren = (
+            buttonchildren[0] if self.identifier.startswith('item_')
+            else buttonchildren[1])
+        try:
+            childbuttons = self._load_autosave(dungeonbutton)
+        except KeyError:
+            childbuttons = {}
+            for child in buttonchildren:
+                childbuttons[child] = True
+        finally:
+            children = []
+            for child in buttonchildren:
+                try:
+                    if childbuttons[child]:
+                        children.append(self.available[child])
+                except KeyError:
+                    pass
+            if not children:
+                nc = 'off'
+            elif all(children):
+                nc = 'on'
+            elif any(children):
+                fullclear = self.tracker.dungeon_availability(
+                    dungeonbutton,
+                    ('item' if self.identifier.startswith('item_')
+                     else 'skulltula'))
+                nc = 'on' if fullclear else 'partial'
+            else:
+                nc = 'unavailable'
+
+        return nc
 
     def reset(self) -> None:
         '''

@@ -4,6 +4,7 @@ Interface to configuration system.
 
 import json
 import os
+import sys
 import typing
 
 from ..version import __version__ as version
@@ -182,7 +183,10 @@ def config_directory() -> str:
         str: full path to configuration directory
     '''
 
-    configdir = os.path.expanduser('~/.z5-tracker')
+    if sys.platform.startswith('win32'):
+        configdir = os.path.join(os.getenv('LOCALAPPDATA'), 'z5-tracker')
+    else:
+        configdir = os.path.expanduser('~/.z5-tracker')
     if not os.path.isdir(configdir):
         os.mkdir(configdir)
     return configdir
