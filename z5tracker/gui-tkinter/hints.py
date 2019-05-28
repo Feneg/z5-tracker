@@ -151,7 +151,10 @@ class HintDisplay(tk.Toplevel):
         Restore data from save.
         '''
 
-        data = storage.load_save()['Hints']
+        try:
+            data = storage.load_save()['Hints']
+        except KeyError:
+            return
         if not data:
             return
         for row in range(1, 5):

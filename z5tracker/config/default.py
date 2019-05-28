@@ -22,4 +22,7 @@ DEFAULT = (
 )
 
 
-OVERWRITE = {'1.0.0': set(), '1.1.0': {'ruleset', 'rule_string'}}
+OVERWRITE = {
+    '1.0.0': set(),
+    '1.1.0': {'ruleset', 'rule_string'},
+    '1.1.1': set()}

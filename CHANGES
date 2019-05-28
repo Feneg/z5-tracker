@@ -1,0 +1,11 @@
+1.1.1
+- fix crash on first start-up
+
+1.1.0
+- randomiser version 4.0
+- hint tracking
+
+1.0.0
+
+- initial public release: item/skulltula tracking, dungeon tracking, location tracking
+- randomiser version 3.0
