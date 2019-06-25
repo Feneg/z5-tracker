@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='z5-tracker',
-    version='1.2.0',
+    version='1.2.1',
     author='Feneg',
     description='Helper program for Ocarina of Time randomiser',
     url='https://www.github.com/feneg/z5-tracker',

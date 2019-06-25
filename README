@@ -68,6 +68,9 @@ Remember: It is always possible to adjust the 'Rules string' setting to include 
 This is unfortunately a limitation of the current randomiser ruleset. The map only marks if a location is reachable at any age, not the age specific to the map. There also isn't an easy way to fix this. While it would be possible to completely fix the child map, the randomiser does not offer any way to remove child-only locations from the world state. This means that a location like the heart piece in a crate in Gerudo Valley cannot easily be fixed for the adult map without major manual intervention. I therefore have the choice to fix it partially, or not at all. To remain consistent, I chose not to fix it at all.
 The good news is that it appears that randomiser version 5.0 will include the means to fix this.
 
+- Why are locations in skulltula house marked as unavailable despite having the necessary tokens?
+You probably have entered rules in the settings which excludes requiring a set amount of skulltullas (or any). Locations which have been disabled in the randomiser rules will never show up as available -- unless you mark the option 'Show disabled locations'. (Don't forget to restart.)
+
 - There are a lot of skulltulas marked as unavailable despite clearly having access to them.
 Is the option that nighttime skulltulas require Sun Song enabled? This will have exactly this effect. Remember that it is always possible to set a rules string different from the one used to created the randomised game in order to adjust the location display to one's needs.
 

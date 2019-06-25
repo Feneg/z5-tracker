@@ -1,5 +1,9 @@
-1.2.0
+1.2.1
+- fix allowed tricks setting being ignored (bug since 1.1.0)
+- add option to permanently mark disabled locations as unavailable (like in 1.0)
+- fix certain rule strings being ignored
 
+1.2.0
 - dungeon availability check
 - dungeon buttons on skulltula maps
 - Windows-specific config folder
@@ -12,6 +16,5 @@
 - hint tracking
 
 1.0.0
-
 - initial public release: item/skulltula tracking, dungeon tracking, location tracking
 - randomiser version 3.0

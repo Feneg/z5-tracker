@@ -34,9 +34,10 @@ class ConfigWindow(tk.Toplevel):
         self._float(4, 'Map size', 'map_size')
         self._display(5, 'Ruleset', CONFIG['ruleset'])
         self._string(6, 'Rules string', 'rule_string', _validate_rule_string)
-        self._checkbox(7, 'Show all scrubs', 'show_scrubs')
-        self._checkbox(8, 'Show shops', 'show_shops')
-        self._display(9, 'Window Layout', CONFIG['window_layout'])
+        self._checkbox(7, 'Show disabled locations', 'show_disabled')
+        self._checkbox(8, 'Show all scrubs', 'show_scrubs')
+        self._checkbox(9, 'Show shops', 'show_shops')
+        self._display(10, 'Window Layout', CONFIG['window_layout'])
 
     def _display(self, row: int, name: str, value: str) -> None:
         '''
@@ -132,7 +133,7 @@ def _validate_rule_string(newstring: str) -> True:
         True: always
     '''
 
-    if newstring.isalnum() and len(newstring) == 35:
+    if newstring.isalnum():
         CONFIG.set('rule_string', newstring)
     return True
 

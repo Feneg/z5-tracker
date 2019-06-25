@@ -1,5 +1,5 @@
 '''
-Version 3 of AmazingAmpharos' item randomiser
+Version 4 of AmazingAmpharos' item randomiser
 '''
 
 from .rulesets import *

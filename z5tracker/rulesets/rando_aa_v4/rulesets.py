@@ -9,10 +9,12 @@ from . import EntranceShuffle as entrances
 from . import Item as items
 from . import ItemList as itemlist
 from . import HintList as hintlist
+from . import Location as locationclass
 from . import LocationList as locationlist
 from . import Region as regions
 from . import Rules as rules
 from . import Settings as settings
+from .SettingsList import logic_tricks
 from . import State as state
 from . import World as world
 
@@ -30,14 +32,13 @@ class Ruleset(object):
     '''
 
     def __init__(self):
-        defaults = {}
-        for info in settings.setting_infos:
-            if 'default' in info.args_params:
-                defaults[info.name] = info.args_params['default']
-            else:
-                defaults[info.name] = None
-        self.settings = settings.Settings(defaults)
+
+        self.settings = settings.Settings({})
         self.settings.update_with_settings_string(CONFIG['rule_string'])
+        for trick in logic_tricks:
+            self.settings.__dict__[logic_tricks[trick]['name']] = (
+                logic_tricks[trick]['name']
+                in self.settings.__dict__['allowed_tricks'])
         self.world = world.World(self.settings)
         self.world.load_regions_from_json(os.path.join(
             os.path.dirname(__file__), 'data', 'World', 'Overworld.json'))
@@ -45,6 +46,10 @@ class Ruleset(object):
         self.world.initialize_entrances()
         rules.set_rules(self.world)
         self.state = state.State(self.world)
+        if not CONFIG['show_disabled']:
+            for loc in self.world.get_locations():
+                if loc.disabled == locationclass.DisableType.PENDING:
+                    loc.locked = True
         self.items = {}
         self.skulls = {}
         for i in self.world.regions:

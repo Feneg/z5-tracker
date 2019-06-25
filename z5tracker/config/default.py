@@ -15,6 +15,7 @@ DEFAULT = (
     ('map_size', float, 1),
     ('ruleset', str, 'rando_aa_v4'),
     ('rule_string', str, 'BDNGGCS6FAYAAAAAEBNJLA'),
+    ('show_disabled', bool, False),
     ('show_scrubs', bool, False),
     ('show_shops', bool, False),
     ('version', str, version),
@@ -26,4 +27,5 @@ OVERWRITE = {
     '1.0.0': set(),
     '1.1.0': {'ruleset', 'rule_string'},
     '1.1.1': set(),
-    '1.2.0': set()}
+    '1.2.0': set(),
+    '1.2.1': set()}
