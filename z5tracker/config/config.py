@@ -186,7 +186,7 @@ def config_directory() -> str:
     if sys.platform.startswith('win32'):
         configdir = os.path.join(os.getenv('LOCALAPPDATA'), 'z5-tracker')
     else:
-        configdir = os.path.expanduser('~/.z5-tracker')
+        configdir = os.path.expanduser('~/.z5-tracker-next')
     if not os.path.isdir(configdir):
         os.mkdir(configdir)
     return configdir

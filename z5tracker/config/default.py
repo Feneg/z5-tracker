@@ -14,7 +14,7 @@ DEFAULT = (
     ('icon_size', float, 1),
     ('layout', str, 'order.conf'),
     ('map_size', float, 1),
-    ('ruleset', str, 'rando_aa_v4'),
+    ('ruleset', str, 'rando_aa_v5'),
     ('rule_string', str, 'BDNGGCS6FAYAAAAAEBNJLA'),
     ('show_disabled', bool, False),
     ('show_scrubs', bool, False),
