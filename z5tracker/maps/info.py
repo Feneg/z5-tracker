@@ -76,6 +76,9 @@ BUTTONTYPE['fairy'] = {
 BUTTONTYPE['sub'] = {
     'colours': BUTTONTYPE['standard']['colours'],
     'shape': lambda self, location: self._sub_icon(location)}
+BUTTONTYPE['cow'] = {
+    'colours': BUTTONTYPE['standard']['colours'],
+    'shape': lambda self, location: self._cow_icon(location)}
 BUTTONTYPE['stone'] = {
     'colours': {
         'on': {'active': '#9aa', 'normal': '#ddd'},

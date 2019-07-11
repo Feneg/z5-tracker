@@ -489,6 +489,13 @@ class MapDisplay(tk.Toplevel):
         new = self.m.create_polygon(*loc)
         return new
 
+    def _cow_icon(sdelf, location: typing.Sequence[int]) -> int:
+        '''Cow symbol'''
+        shape = 0, 20, 20, 0, 0, -20, -20, 0
+        loc = _make_symbol_coordinates(location, shape, self.spec['mapscale'])
+        new = self.m.create_oval(*loc)
+        return new
+
     def _stone_icon(self, location: typing.Sequence[int]) -> int:
         '''Gossip stone symbol'''
         shape = 0, -20, 20, -10, 0, 20, -20, -10
