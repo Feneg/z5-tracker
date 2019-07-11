@@ -1423,48 +1423,48 @@ ITEMLOCATIONS = {
 
     # Cows
     "LLR Stables Left Cow": {
-        'maps': (),
-        'coordinates': (),
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (600, 1308),
         'type': 'cow',
         'restriction': 'cowsanity'},
     "LLR Stables Right Cow": {
-        'maps': (),
-        'coordinates': (),
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (560, 1308),
         'type': 'cow',
         'restriction': 'cowsanity'},
     "LLR Tower Right Cow": {
-        'maps': (),
-        'coordinates': (),
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (650, 1197),
         'type': 'cow',
         'restriction': 'cowsanity'},
     "LLR Tower Left Cow": {
-        'maps': (),
-        'coordinates': (),
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (650, 1237),
         'type': 'cow',
         'restriction': 'cowsanity'},
     "Links House Cow": {
-        'maps': (),
-        'coordinates': (),
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (1000, 2180),
         'type': 'cow',
         'restriction': 'cowsanity'},
     "Impas House Cow": {
-        'maps': (),
-        'coordinates': (),
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (451, 1787),
         'type': 'cow',
         'restriction': 'cowsanity'},
     "Gerudo Valley Cow": {
-        'maps': (),
-        'coordinates': (),
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (490, 661),
         'type': 'cow',
         'restriction': 'cowsanity'},
     "DMT Grotto Cow": {
-        'maps': (),
-        'coordinates': (),
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (200, 1704),
         'type': 'cow',
         'restriction': 'cowsanity'},
     "HF Grotto Cow": {
-        'maps': (),
-        'coordinates': (),
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (680, 990),
         'type': 'cow',
         'restriction': 'cowsanity'},
 
@@ -1483,7 +1483,7 @@ ITEMLOCATIONS = {
         'type': 'stone'},
     'Dodongos Cavern Gossip Stone': {
         'maps': ('item_child', 'item_adult'),
-        'coordinates': (230, 1700),
+        'coordinates': (240, 1660),
         'type': 'stone'},
     'Generic Grotto Gossip Stone': {
         'maps': ('item_child', 'item_adult'),

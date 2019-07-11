@@ -102,7 +102,9 @@ class MapDisplay(tk.Toplevel):
             button = ITEMLOCATIONS[b]
             for m in button['maps']: assert m in MAPSPEC
             if 'restriction' in button:
-                if ((button['restriction'] == 'scrubshuffle'
+                if ((button['restriction'] == 'cowsanity'
+                    and not CONFIG['show_cows']) or
+                    (button['restriction'] == 'scrubshuffle'
                      and not CONFIG['show_scrubs']) or
                     (button['restriction'] == 'shopsanity'
                      and not CONFIG['show_shops'])):
@@ -489,9 +491,9 @@ class MapDisplay(tk.Toplevel):
         new = self.m.create_polygon(*loc)
         return new
 
-    def _cow_icon(sdelf, location: typing.Sequence[int]) -> int:
+    def _cow_icon(self, location: typing.Sequence[int]) -> int:
         '''Cow symbol'''
-        shape = 0, 20, 20, 0, 0, -20, -20, 0
+        shape = -20, -20, 20, 20
         loc = _make_symbol_coordinates(location, shape, self.spec['mapscale'])
         new = self.m.create_oval(*loc)
         return new
