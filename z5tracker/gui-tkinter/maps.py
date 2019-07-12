@@ -32,6 +32,7 @@ class MapDisplay(tk.Toplevel):
         links: linked maps
         tracker: location tracker
         available: location availability
+        visible: location visibility
         parent: overworld map display (if applicable)
         childmaps: dungeon specific maps tied to this overworld map
     '''
@@ -95,6 +96,7 @@ class MapDisplay(tk.Toplevel):
         # Set-up location tracker.
         self.tracker = tracker
         self.available = {}
+        self.visible = {}
 
         # Place buttons.
         self.buttons = {}
@@ -145,6 +147,7 @@ class MapDisplay(tk.Toplevel):
 
         # Restore latest button states.
         self._restore_autosave()
+        self._update_visibility()
         self.update_buttons()
 
         # Prepare for linked maps.
@@ -168,6 +171,18 @@ class MapDisplay(tk.Toplevel):
         else:
             self.available = self.tracker.check_availability(
                 self.spec['loctype'])
+
+    def _update_visibility(self) -> None:
+        '''
+        Update visibility database.
+
+        Writes:
+            visible
+        '''
+
+        if self.spec['loctype'] == 'dungeon':
+            return False
+        self.visible = self.tracker.check_visibility(self.spec['loctype'])
 
     def _set_colour(self, button: str, colour: str, display) -> None:
         '''
@@ -303,6 +318,8 @@ class MapDisplay(tk.Toplevel):
                 else:
                     nc = self.available[button]
                     nc = 'on' if nc else 'unavailable'
+                    if nc == 'unavailable' and self.visible[button]:
+                        nc = 'visible'
                 if 'adult' in self.identifier and not self.tracker.is_adult():
                     nc = 'unavailable'
                 try:

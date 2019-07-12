@@ -154,6 +154,31 @@ class Ruleset(object):
         available = all(listing[l].can_reach(fullstate) for l in locs)
         return available
 
+    def location_visible(self, name: str, loctype: str) -> bool:
+        '''
+        Check whether given item location is visible.
+
+        Args:
+            name: name of item location
+            loctype: 'item' or 'skulltula'
+            state: if given, use this state instead of default one
+        Returns:
+            bool: True if location is visible
+        '''
+
+        assert loctype in ('item', 'skulltula')
+        listing = self.items if loctype == 'item' else self.skulls
+        if isinstance(listing[name], regions.Region):
+            visible = any(
+                location.has_preview() for location in listing[name].locations)
+        else:
+            try:
+                visible = listing[name].has_preview()
+            except AttributeError:
+                visible = False
+
+        return visible
+
     def add_item(self, itemname: str) -> None:
         '''
         Add item to current inventory.

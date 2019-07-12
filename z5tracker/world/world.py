@@ -98,6 +98,24 @@ class LocationTracker(object):
 
         return self.rules.dungeon_available(dungeonname, loctype)
 
+    def check_visibility(self, loctype: str) -> dict:
+        '''
+        Return list of locations and whether they are visible.
+
+        Args:
+            loctype: 'item' or 'skulltulla'
+        Returns:
+            dict: dictionary containing visibility of locations
+        '''
+
+        assert loctype in ('item', 'skulltula')
+        listing = (self.itemlocations if loctype == 'item'
+                   else self.skulltulalocations)
+        visible = {}
+        for location in listing:
+            visible[location] = self.rules.location_visible(location, loctype)
+        return visible
+
     def add_item(self, itemname: str) -> None:
         '''
         Add item to current inventory.
