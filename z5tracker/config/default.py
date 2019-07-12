@@ -15,7 +15,7 @@ DEFAULT = (
     ('layout', str, 'order.conf'),
     ('map_size', float, 1),
     ('ruleset', str, 'rando_aa_v5'),
-    ('rule_string', str, 'F2NNEA3MA2CAAAASESBKBA'),
+    ('rule_string', str, 'F2NNEA3MA2CAAAAAKADUCA'),
     ('show_disabled', bool, False),
     ('show_cows', bool, False),
     ('show_scrubs', bool, False),

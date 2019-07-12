@@ -13,6 +13,7 @@ import copy
 import io
 import json
 import random
+import re
 
 class World(object):
 
@@ -35,13 +36,14 @@ class World(object):
         # this gives the world an attribute for every setting listed in Settings.py
         self.settings = settings
         self.__dict__.update(settings.__dict__)
+        self.distribution = None
 
         # evaluate settings (important for logic, nice for spoiler)
         if self.big_poe_count_random:
             self.big_poe_count = random.randint(1, 10)
         if self.starting_tod == 'random':
             setting_info = get_setting_info('starting_tod')
-            choices = [ch for ch in setting_info.args_params['choices'] if ch not in ['default', 'random']]
+            choices = [ch for ch in setting_info.choices if ch not in ['default', 'random']]
             self.starting_tod = random.choice(choices)
 
         # rename a few attributes...
@@ -85,6 +87,7 @@ class World(object):
         new_world.can_take_damage = self.can_take_damage
         new_world.shop_prices = copy.copy(self.shop_prices)
         new_world.id = self.id
+        new_world.distribution = self.distribution
 
         new_world.regions = [region.copy(new_world) for region in self.regions]
         for region in new_world.regions:
@@ -103,7 +106,13 @@ class World(object):
         with io.open(file_path, 'r') as file:
             for line in file.readlines():
                 json_string += line.split('#')[0].replace('\n', ' ')
-        region_json = json.loads(json_string)
+        json_string = re.sub(' +', ' ', json_string)
+        try:
+            region_json = json.loads(json_string)
+        except json.JSONDecodeError as error:
+            raise Exception("JSON parse error around text:\n" + \
+                            json_string[error.pos-35:error.pos+35] + "\n" + \
+                            "                                   ^^\n")
 
         for region in region_json:
             new_region = Region(region['region_name'])
@@ -274,12 +283,12 @@ class World(object):
         return [location for location in self.get_locations() if location.item is not None and location.item.name == item]
 
 
-    def push_item(self, location, item):
+    def push_item(self, location, item, manual=False):
         if not isinstance(location, Location):
             location = self.get_location(location)
 
         # This check should never be false normally, but is here as a sanity check
-        if location.can_fill_fast(item):
+        if location.can_fill_fast(item, manual):
             location.item = item
             item.location = location
             item.price = location.price if location.price is not None else item.price

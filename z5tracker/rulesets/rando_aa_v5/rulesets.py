@@ -5,7 +5,6 @@ from ...config import CONFIG
 from ... import maps
 
 from . import DungeonList as dungeons
-from . import EntranceShuffle as entrances
 from . import Item as items
 from . import ItemList as itemlist
 from . import HintList as hintlist
