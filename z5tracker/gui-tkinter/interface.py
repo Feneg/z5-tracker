@@ -18,6 +18,7 @@ from .. import world as location_tracker
 
 from . import config
 from . import dungeons as dungeon_gui
+from . import help as helper
 from . import hints
 from . import items as item_gui
 from . import maps
@@ -69,6 +70,7 @@ class GraphicalInterface(object):
             'dungeons': self._open_dungeons,
             'hints': self._open_hints,
             'config': self._open_config,
+            'help': self._open_help,
             'load': self._load,
             'save': self._save,
             'quit': self.quit,
@@ -83,6 +85,7 @@ class GraphicalInterface(object):
             'skullmap_a': None,
             'dungeons': None,
             'config': None,
+            'help': None,
             'hints': None,
             }
 
@@ -168,6 +171,9 @@ class GraphicalInterface(object):
 
     def _open_config(self) -> None:
         self._open_window('config', lambda: config.ConfigWindow())
+
+    def _open_help(self) -> None:
+        self._open_window('help', lambda: helper.HelpWindow())
 
     def _open_itemmap(self) -> None:
         self._open_window(

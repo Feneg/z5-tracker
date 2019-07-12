@@ -38,6 +38,7 @@ class MenuWindow(tk.Toplevel):
                 (1, 1), commands['skullmap'], 'Skulltula Map'),
             'hints': self._make_button((1, 2), commands['hints'], 'Hints'),
             'config': self._make_button((0, 3), commands['config'], 'Options'),
+            'help': self._make_button((1, 3), commands['help'], 'Help'),
             'load': self._make_button((0, 4), commands['load'], 'Load'),
             'save': self._make_button((1, 4), commands['save'], 'Save'),
             'quit': self._make_button((0, 5), commands['quit'], 'Quit'),

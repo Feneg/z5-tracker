@@ -91,7 +91,8 @@ BUTTONTYPE['dungeon'] = {
         'on': {'active': '#0f0', 'normal': '#0c0'},
         'off': {'active': '#aaa', 'normal': 'grey'},
         'unavailable': {'active': '#f00', 'normal': '#c00'},
-        'partial': {'active': '#ff0', 'normal': '#cc0'}},
+        'partial': {'active': '#ff0', 'normal': '#cc0'},
+        'visible': {'active': '#0090ee', 'normal': '#0070bb'}},
     'shape': lambda self, location: self._dungeon_icon(location)}
 BUTTONTYPE['ganon'] = {
     'colours': BUTTONTYPE['standard']['colours'],
