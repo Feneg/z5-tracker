@@ -454,6 +454,10 @@ ITEMLOCATIONS = {
         'maps': (),
         'coordinates': (),
         'type': 'standard'},
+    "Pierre": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'npc'},
     "Magic Bean Salesman": {
         'maps': (),
         'coordinates': (),
