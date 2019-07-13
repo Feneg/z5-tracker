@@ -99,12 +99,13 @@ class LocationTracker(object):
 
         return self.rules.dungeon_available(dungeonname, loctype)
 
-    def check_visibility(self, loctype: str) -> dict:
+    def check_visibility(self, loctype: str, age: str = 'either') -> dict:
         '''
         Return list of locations and whether they are visible.
 
         Args:
             loctype: 'item' or 'skulltulla'
+            age: 'child', 'adult' or 'either'
         Returns:
             dict: dictionary containing visibility of locations
         '''
@@ -114,7 +115,8 @@ class LocationTracker(object):
                    else self.skulltulalocations)
         visible = {}
         for location in listing:
-            visible[location] = self.rules.location_visible(location, loctype)
+            visible[location] = self.rules.location_visible(
+                location, loctype, age)
         return visible
 
     def add_item(self, itemname: str) -> None:

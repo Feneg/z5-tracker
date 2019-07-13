@@ -147,7 +147,6 @@ class MapDisplay(tk.Toplevel):
 
         # Restore latest button states.
         self._restore_autosave()
-        self._update_visibility()
         self.update_buttons()
 
         # Prepare for linked maps.
@@ -182,8 +181,12 @@ class MapDisplay(tk.Toplevel):
         '''
 
         if self.spec['loctype'] == 'dungeon':
-            return False
-        self.visible = self.tracker.check_visibility(self.spec['loctype'])
+            self.visible = self.tracker.check_visibility('item', 'either')
+            self.visible.update(
+                self.tracker.check_availability('skulltula', 'either'))
+        else:
+            self.visible = self.tracker.check_visibility(
+                self.spec['loctype'], self.identifier.split('_')[-1])
 
     def _set_colour(self, button: str, colour: str, display) -> None:
         '''
@@ -310,6 +313,7 @@ class MapDisplay(tk.Toplevel):
 
         mapping = {True: 'on', False: 'unavailable'}
         self._update_availability()
+        self._update_visibility()
         for button in self.buttons:
             if self.buttons[button]['state']:
                 if self.buttons[button]['type'] == 'dungeon':

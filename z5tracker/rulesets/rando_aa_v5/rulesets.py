@@ -156,14 +156,15 @@ class Ruleset(object):
         available = all(listing[l].can_reach(fullstate) for l in locs)
         return available
 
-    def location_visible(self, name: str, loctype: str) -> bool:
+    def location_visible(
+            self, name: str, loctype: str, age: str = 'either') -> bool:
         '''
         Check whether given item location is visible.
 
         Args:
             name: name of item location
             loctype: 'item' or 'skulltula'
-            state: if given, use this state instead of default one
+            age: 'child', 'adult' or 'either'
         Returns:
             bool: True if location is visible
         '''
@@ -173,11 +174,14 @@ class Ruleset(object):
         if isinstance(listing[name], regions.Region):
             visible = any(
                 location.has_preview() for location in listing[name].locations)
+            visible &= self.state.can_reach(listing[name], age=age)
         else:
             try:
                 visible = listing[name].has_preview()
             except AttributeError:
                 visible = False
+            visible &= self.state.can_reach(
+                listing[name].parent_region, age=age)
 
         return visible
 
