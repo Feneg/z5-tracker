@@ -14,6 +14,8 @@ from .. import rulesets
 
 from . import misc
 
+MAXWOTH = 5
+MAXROWS = 34
 
 __all__ = 'HintDisplay',
 
@@ -63,17 +65,28 @@ class HintDisplay(tk.Toplevel):
         progression.sort()
         items = [allitems[itm][1].replace('the ', '') for itm in progression]
         items.insert(0, '<unimportant>')
+        items.insert(0, '<heart piece>')
+        items.insert(0, '<rupees>')
+        items.insert(0, '<ammo>')
         items.insert(0, '')
         self.items = items
-        locations = self.rules.get_hint_items('location')
-        locations.sort(key=operator.attrgetter('name'))
-        self.locations = [loc.name for loc in locations]
-        self.locations.insert(0, '<location>')
+        songs = self.rules.get_hint_items('song')
+        songs.sort(key=operator.attrgetter('name'))
+        self.songs = [loc.name for loc in songs]
+        self.songs.insert(0, '<song>')
+        minigame = self.rules.get_hint_items('minigame')
+        minigame.sort(key=operator.attrgetter('name'))
+        self.minigame = [loc.name for loc in minigame]
+        self.minigame.insert(0, '<minigame>')
+        overworld = self.rules.get_hint_items('overworld')
+        overworld.sort(key=operator.attrgetter('name'))
+        self.overworld = [loc.name for loc in overworld]
+        self.overworld.insert(0, '<overworld>')
         dungeons = self.rules.get_hint_items('dungeon')
         dungeons.sort(key=operator.attrgetter('name'))
-        self.dungeons = [allitems[dgn.name][1] for dgn in dungeons]
+        self.dungeons = [dgn.name for dgn in dungeons]
         self.dungeons.insert(0, '<dungeon>')
-        obligatory = self.rules.get_hint_items('alwaysLocation')
+        obligatory = self.rules.get_hint_items('always')
         obligatory.sort(key=operator.attrgetter('name'))
         self.obligatory = obligatory
 
@@ -118,7 +131,7 @@ class HintDisplay(tk.Toplevel):
         self.wothlabel.grid(column=0, row=0, sticky=tk.N)
 
         self.woth_fields = {}
-        for row in range(1, 5):
+        for row in range(1, MAXWOTH):
             self.woth_fields[row] = WothEntry(
                 row, self.wothframe, self._autosave, self.regions)
 
@@ -131,20 +144,36 @@ class HintDisplay(tk.Toplevel):
             self.locframe, font=_font(), text='Location hints')
         self.loclabel.grid(column=0, row=0, sticky=tk.N)
 
+        reference = len(self.obligatory) + 1
+        hintset = self.rules.get_hint_distribution()
+        dist = {'songs': (
+            reference + 2 if hintset in ('balanced', 'strong') else
+            reference + 1)}
+        dist['minigame'] = (
+            dist['songs'] + 2 if hintset in ('balanced', 'strong') else
+            dist['songs'] + 0 if hintset == 'tournament' else
+            dist['songs'] + 1)
+        dist['overworld'] = (
+            dist['minigame'] + 2 if hintset == 'tournament' else
+            dist['minigame'] + 4)
+        dist['dungeons'] = (
+            dist['overworld'] + 3 if hintset == 'tournament' else
+            dist['overworld'] + 4)
+
         self.loc_fields = {}
-        for row in range(1, len(self.obligatory) + 1):
+        for row in range(1, reference):
             self.loc_fields[row] = LocEntry(
                 row, self.locframe, self._autosave, self.items, self.regions,
                 self.obligatory[row - 1].name)
-        for row in range(len(self.obligatory) + 1, 13):
+        for row in range(reference, MAXROWS):
+            for htype in dist:
+                if row < dist[htype]:
+                    break
+            else:
+                htype = 'regions'
             self.loc_fields[row] = LocEntry(
-                row, self.locframe, self._autosave, self.items, self.locations)
-        for row in range(13, 17):
-            self.loc_fields[row] = LocEntry(
-                row, self.locframe, self._autosave, self.items, self.dungeons)
-        for row in range(17, 34):
-            self.loc_fields[row] = LocEntry(
-                row, self.locframe, self._autosave, self.items, self.regions)
+                row, self.locframe, self._autosave, self.items,
+                getattr(self, htype))
 
     def restore(self) -> None:
         '''
@@ -157,19 +186,19 @@ class HintDisplay(tk.Toplevel):
             return
         if not data:
             return
-        for row in range(1, 5):
+        for row in range(1, MAXWOTH):
             self.woth_fields[row].variable.set(data['woth'][row - 1][1])
             if data['woth'][row - 1][0]:
                 self.woth_fields[row].okpress()
         for row in range(1, len(self.obligatory) + 1):
             self.loc_fields[row].itemvar.set(data['loc'][row - 1][1])
-        for row in range(len(self.obligatory) + 1, 34):
+        for row in range(len(self.obligatory) + 1, MAXROWS):
             try:
                 self.loc_fields[row].itemvar.set(data['loc'][row - 1][1])
                 self.loc_fields[row].locvar.set(data['loc'][row - 1][2])
             except IndexError:
                 break
-        for row in range(1, 34):
+        for row in range(1, MAXROWS):
             try:
                 if data['loc'][row - 1][0]:
                     self.loc_fields[row].okpress()
@@ -187,12 +216,12 @@ class HintDisplay(tk.Toplevel):
 
         ret = {}
         ret['woth'] = []
-        for row in range(1, 5):
+        for row in range(1, MAXWOTH):
             ret['woth'].append(
                 (self.woth_fields[row].statetrack.get(),
                  self.woth_fields[row].variable.get()))
         ret['loc'] = []
-        for row in range(1, 34):
+        for row in range(1, MAXROWS):
             ret['loc'].append(
                 (self.loc_fields[row].statetrack.get(),
                  self.loc_fields[row].itemvar.get(),
@@ -211,9 +240,9 @@ class HintDisplay(tk.Toplevel):
         Establish autosaving.
         '''
 
-        for row in range(1, 5):
+        for row in range(1, MAXWOTH):
             self.woth_fields[row].variable.trace('w', self._autosave)
-        for row in range(1, 34):
+        for row in range(1, MAXROWS):
             self.loc_fields[row].itemvar.trace('w', self._autosave)
             self.loc_fields[row].locvar.trace('w', self._autosave)
 
@@ -222,9 +251,9 @@ class HintDisplay(tk.Toplevel):
         Reset to default state.
         '''
 
-        for row in range(1, 5):
+        for row in range(1, MAXWOTH):
             self.woth_fields[row].delpress()
-        for row in range(1, 34):
+        for row in range(1, MAXROWS):
             self.loc_fields[row].delpress()
 
 

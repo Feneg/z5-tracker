@@ -66,9 +66,7 @@ class Ruleset(object):
         self.inventory = {}
         for equipment in itemlist.item_table:
             itm = itemlist.item_table[equipment]
-            self.inventory[equipment] = items.Item(
-                equipment, itm[1] == True, itm[1] == False,
-                itm[0], itm[2], itm[3], self.world)
+            self.inventory[equipment] = items.Item(equipment, self.world)
 
     def list_regions(self) -> set:
         '''
@@ -318,3 +316,13 @@ class Ruleset(object):
         if pooltype == 'all':
             return hintlist.hintTable
         return hintlist.getHintGroup(pooltype, self.world)
+
+    def get_hint_distribution(self) -> str:
+        '''
+        Return hint distribution type.
+
+        Returns:
+            str: 'useless', 'balanced', 'strong', 'very_strong', 'tournament'
+        '''
+
+        return self.world.hint_dist
