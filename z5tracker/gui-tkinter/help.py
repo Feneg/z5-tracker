@@ -5,6 +5,7 @@ Explain colour coding of map locations.
 import tkinter as tk
 import tkinter.ttk as ttk
 
+from ..config import CONFIG
 from ..maps.info import BUTTONTYPE
 
 from . import misc
@@ -26,9 +27,10 @@ class HelpWindow(tk.Toplevel):
 
         self.itemframe = ttk.LabelFrame(self, text='Items')
         self.itemframe.grid(column=0, row=0, sticky=tk.W + tk.N + tk.S)
-        itementries = (('on', 'Available'), ('off', 'Already checked'),
-                       ('unavailable', 'Unavailable'),
-                       ('visible', 'Visible but unavailable'))
+        itementries = [('on', 'Available'), ('off', 'Already checked'),
+                       ('unavailable', 'Unavailable')]
+        if CONFIG['show_visible']:
+            itementries.append(('visible', 'Visible but unavailable'))
         self._add_listing(self.itemframe, 'standard', itementries)
         self.itemdframe = ttk.LabelFrame(
             self.itemframe, text='Dungeon summary')

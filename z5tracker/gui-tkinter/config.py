@@ -36,10 +36,12 @@ class ConfigWindow(tk.Toplevel):
         self._display(6, 'Ruleset', CONFIG['ruleset'])
         self._string(7, 'Rules string', 'rule_string', _validate_rule_string)
         self._checkbox(8, 'Show disabled locations', 'show_disabled')
-        self._checkbox(9, 'Show cows', 'show_cows')
-        self._checkbox(10, 'Show all scrubs', 'show_scrubs')
-        self._checkbox(11, 'Show shops', 'show_shops')
-        self._display(12, 'Window Layout', CONFIG['window_layout'])
+        self._checkbox(
+            9, 'Mark visible locations (unreliable!)', 'show_visible')
+        self._checkbox(10, 'Show cows', 'show_cows')
+        self._checkbox(11, 'Show all scrubs', 'show_scrubs')
+        self._checkbox(12, 'Show shops', 'show_shops')
+        self._display(13, 'Window Layout', CONFIG['window_layout'])
 
     def _display(self, row: int, name: str, value: str) -> None:
         '''

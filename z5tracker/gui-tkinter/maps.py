@@ -313,7 +313,8 @@ class MapDisplay(tk.Toplevel):
 
         mapping = {True: 'on', False: 'unavailable'}
         self._update_availability()
-        self._update_visibility()
+        if CONFIG['show_visible']:
+            self._update_visibility()
         for button in self.buttons:
             if self.buttons[button]['state']:
                 if self.buttons[button]['type'] == 'dungeon':
@@ -321,7 +322,8 @@ class MapDisplay(tk.Toplevel):
                 else:
                     nc = self.available[button]
                     nc = 'on' if nc else 'unavailable'
-                    if nc == 'unavailable' and self.visible[button]:
+                    if (CONFIG['show_visible'] and nc == 'unavailable' and
+                            self.visible[button]):
                         nc = 'visible'
                 if 'adult' in self.identifier and not self.tracker.is_adult():
                     nc = 'unavailable'
