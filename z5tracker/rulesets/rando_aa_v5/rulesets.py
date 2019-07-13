@@ -98,13 +98,15 @@ class Ruleset(object):
         return list(listing.keys())
 
     def location_available(
-            self, name: str, loctype: str, state: state.State = None) -> bool:
+            self, name: str, loctype: str, age: str = 'either',
+            state: state.State = None) -> bool:
         '''
         Check whether given item location is available.
 
         Args:
             name: name of item location
             loctype: 'item' or 'skulltula'
+            age: 'child', 'adult' or 'either'
             state: if given, use this state instead of default one
         Returns:
             bool: True if location is available
@@ -115,11 +117,11 @@ class Ruleset(object):
         usestate = self.state if state is None else state
         if isinstance(listing[name], regions.Region):
             available = all(
-                usestate.can_reach(location)
+                usestate.can_reach(location, age=age)
                 for location in listing[name].locations)
         else:
             try:
-                available = usestate.can_reach(listing[name])
+                available = usestate.can_reach(listing[name], age=age)
             except AttributeError:
                 available = False
 

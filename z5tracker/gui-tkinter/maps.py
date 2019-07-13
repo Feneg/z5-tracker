@@ -166,11 +166,12 @@ class MapDisplay(tk.Toplevel):
         '''
 
         if self.spec['loctype'] == 'dungeon':
-            self.available = self.tracker.check_availability('item')
-            self.available.update(self.tracker.check_availability('skulltula'))
+            self.available = self.tracker.check_availability('item', 'either')
+            self.available.update(
+                self.tracker.check_availability('skulltula', 'either'))
         else:
             self.available = self.tracker.check_availability(
-                self.spec['loctype'])
+                self.spec['loctype'], self.identifier.split('_')[-1])
 
     def _update_visibility(self) -> None:
         '''
@@ -279,10 +280,8 @@ class MapDisplay(tk.Toplevel):
             if self.buttons[name]['type'] == 'dungeon':
                 assert False  # Never should be here.
             else:
-                nc = self.available[name]
+                nc = mapdisplay.available[name]
                 nc = 'on' if nc else 'unavailable'
-            if 'adult' in self.identifier and not self.tracker.is_adult():
-                nc = 'unavailable'
             self._set_colour(name, nc, mapdisplay)
         else:
             self._set_colour(name, 'off', mapdisplay)

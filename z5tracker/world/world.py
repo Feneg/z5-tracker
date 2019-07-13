@@ -63,12 +63,13 @@ class LocationTracker(object):
                 continue
             self.gui.append(gui)
 
-    def check_availability(self, loctype: str) -> dict:
+    def check_availability(self, loctype: str, age: str = 'either') -> dict:
         '''
         Return list of locations and whether they are available.
 
         Args:
             loctype: 'item' or 'skulltula'
+            age: 'child', 'adult' or 'either'
         Returns:
             dict: dictionary containing availability of locations
         '''
@@ -79,7 +80,7 @@ class LocationTracker(object):
         available = {}
         for location in listing:
             available[location] = self.rules.location_available(
-                location, loctype)
+                location, loctype, age)
         return available
 
     def dungeon_availability(self, dungeonname: str, loctype: str) -> str:
