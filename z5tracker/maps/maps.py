@@ -458,6 +458,26 @@ ITEMLOCATIONS = {
         'maps': (),
         'coordinates': (),
         'type': 'npc'},
+    "Deliver Ruto's Letter": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'npc'},
+    "Sell 1 Big Poe": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'npc'},
+    "Sell 2 Big Poe": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'npc'},
+    "Sell 3 Big Poe": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'npc'},
+    "Sell 4 Big Poe": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'npc'},
     "King Zora Moves": {
         'maps': (),
         'coordinates': (373, 2550),
@@ -478,6 +498,14 @@ ITEMLOCATIONS = {
         'maps': (),
         'coordinates': (),
         'type': 'enemy'},
+    "Forest Temple Deku Baba Sticks": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'enemy'},
+    "Forest Temple Deku Baba Nuts": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'enemy'},
     "Goron City Stick Pot": {
         'maps': (),
         'coordinates': (),
@@ -491,6 +519,10 @@ ITEMLOCATIONS = {
         'coordinates': (),
         'type': 'free'},
     "Zoras Domain Nut Pot": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'free'},
+    "Dampes Grave Nut Pot": {
         'maps': (),
         'coordinates': (),
         'type': 'free'},

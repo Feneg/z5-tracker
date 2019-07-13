@@ -325,8 +325,6 @@ class MapDisplay(tk.Toplevel):
                     if (CONFIG['show_visible'] and nc == 'unavailable' and
                             self.visible[button]):
                         nc = 'visible'
-                if 'adult' in self.identifier and not self.tracker.is_adult():
-                    nc = 'unavailable'
                 try:
                     self._set_colour(button, nc, self)
                 except tk.TclError as err:

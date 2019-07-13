@@ -141,16 +141,6 @@ class LocationTracker(object):
         self.rules.remove_item(itemname)
         self.refresh_gui()
 
-    def is_adult(self) -> bool:
-        '''
-        Check whether adult items are available.
-
-        Returns:
-            bool: True if adult items are available
-        '''
-
-        return self.rules.is_adult()
-
     def check_rule(self, rule: operator.methodcaller) -> bool:
         '''
         Check given rule.

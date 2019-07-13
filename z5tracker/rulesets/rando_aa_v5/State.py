@@ -1,6 +1,7 @@
 from .Region import Region
 from collections import Counter, defaultdict
 import copy
+from .Item import isBottle
 
 
 class State(object):
@@ -86,23 +87,24 @@ class State(object):
         if spot.recursion_count[age_type] > 0:
             return False
 
-        if spot not in self.region_cache[age_type]:
-            # for the purpose of evaluating results, recursion is resolved by always denying recursive access (as that is what we are trying to figure out right now in the first place
-            spot.recursion_count[age_type] += 1
-            self.recursion_count[age_type] += 1
+        if spot in self.region_cache[age_type]:
+            return self.region_cache[age_type][spot]
 
-            can_reach = spot.can_reach(self)
+        # for the purpose of evaluating results, recursion is resolved by always denying recursive access (as that is what we are trying to figure out right now in the first place
+        spot.recursion_count[age_type] += 1
+        self.recursion_count[age_type] += 1
 
-            spot.recursion_count[age_type] -= 1
-            self.recursion_count[age_type] -= 1
+        can_reach = spot.can_reach(self)
 
-            # we store true results and qualified false results (i.e. ones not inside a hypothetical)
-            if can_reach or self.recursion_count[age_type] == 0:
-                self.region_cache[age_type][spot] = can_reach
+        spot.recursion_count[age_type] -= 1
+        self.recursion_count[age_type] -= 1
 
-            return can_reach
+        # we store true results and qualified false results (i.e. ones not inside a hypothetical)
+        if can_reach or self.recursion_count[age_type] == 0:
+            self.region_cache[age_type][spot] = can_reach
+
+        return can_reach
         
-        return self.region_cache[age_type][spot]
 
 
     def as_either(self, lambda_rule):
@@ -118,7 +120,7 @@ class State(object):
 
 
     def as_child(self, lambda_rule):
-        return self.with_age(lambda_rule, 'child')
+        return self.can_become_child() and self.with_age(lambda_rule, 'child')
             
 
     def with_age(self, lambda_rule, age):
@@ -182,7 +184,11 @@ class State(object):
 
 
     def can_become_adult(self):
-        return self.has('Master Sword')
+        return self.world.starting_age == 'adult' or self.has('Master Sword')
+
+
+    def can_become_child(self):
+        return self.world.starting_age == 'child' or self.can_reach('Beyond Door of Time', age='adult')
 
 
     def is_adult(self):
@@ -232,7 +238,7 @@ class State(object):
 
     def has_blue_fire(self):
         return self.has_bottle() and \
-                (self.can_reach('Ice Cavern', age='either')
+                (self.can_reach('Ice Cavern', age='adult')
                 or self.can_reach('Ganons Castle Water Trial', age='either')
                 or self.has('Buy Blue Fire')
                 or (self.world.dungeon_mq['Gerudo Training Grounds'] and self.can_reach('Gerudo Training Grounds Stalfos Room', age='either')))
@@ -249,12 +255,15 @@ class State(object):
     def can_use(self, item):
         magic_items = ['Dins Fire', 'Farores Wind', 'Nayrus Love', 'Lens of Truth']
         adult_items = ['Bow', 'Hammer', 'Iron Boots', 'Hover Boots', 'Epona']
+        adult_buy_or_find = ['Goron Tunic', 'Zora Tunic']
         child_items = ['Slingshot', 'Boomerang', 'Kokiri Sword']
         magic_arrows = ['Fire Arrows', 'Light Arrows']
         if item in magic_items:
             return self.has(item) and self.has('Magic Meter')
         elif item in child_items:
             return self.has(item) and self.is_child()
+        elif item in adult_buy_or_find:
+            return (self.has(item) or self.has('Buy ' + item)) and self.is_adult()
         elif item in adult_items:
             return self.has(item) and self.is_adult()
         elif item in magic_arrows:
@@ -272,9 +281,9 @@ class State(object):
         elif item == 'Golden Gauntlets':
             return self.has('Progressive Strength Upgrade', 3) and self.is_adult()
         elif item == 'Scarecrow':
-            return self.has('Progressive Hookshot') and self.is_adult() and self.has_ocarina()
+            return self.has('Progressive Hookshot') and self.is_adult() and self.has_ocarina() and self.has_scarecrow_song()
         elif item == 'Distant Scarecrow':
-            return self.has('Progressive Hookshot', 2) and self.is_adult() and self.has_ocarina()
+            return self.has('Progressive Hookshot', 2) and self.is_adult() and self.has_ocarina() and self.has_scarecrow_song()
         elif item == 'Magic Bean':
             # Magic Bean usability automatically checks for reachability as child to the current spot's parent region (with as_child_here)
             return self.as_child_here(lambda state: state.has('Magic Bean')) and self.is_adult()
@@ -331,6 +340,14 @@ class State(object):
              self.has('Boomerang') or self.has_explosives() or self.has('Buy Bottle Bug'))
 
 
+    def has_scarecrow_song(self):
+        return self.world.free_scarecrow or self.can_reach('Lake Hylia', age='both')
+
+    def can_use_projectile(self):
+        return self.has_explosives() or \
+               (self.is_adult() and (self.has_bow() or self.has('Progressive Hookshot'))) or \
+               (self.is_child() and (self.has_slingshot() or self.has('Boomerang')))
+
     def has_projectile(self, age='either'):
         if age == 'child':
             return self.has_explosives() or self.has_slingshot() or self.has('Boomerang')
@@ -340,14 +357,6 @@ class State(object):
             return self.has_explosives() or ((self.has_bow() or self.has('Progressive Hookshot')) and (self.has_slingshot() or self.has('Boomerang')))
         else:
             return self.has_explosives() or ((self.has_bow() or self.has('Progressive Hookshot')) or (self.has_slingshot() or self.has('Boomerang')))
-
-
-    def has_GoronTunic(self):
-        return (self.has('Goron Tunic') or self.has('Buy Goron Tunic'))
-
-
-    def has_ZoraTunic(self):
-        return (self.has('Zora Tunic') or self.has('Buy Zora Tunic'))
 
 
     def can_leave_forest(self):
@@ -366,18 +375,23 @@ class State(object):
 
 
     def has_bottle(self):
-        is_normal_bottle = lambda item: (item.startswith('Bottle') and item != 'Bottle with Letter' and (item != 'Bottle with Big Poe' or self.can_reach('Castle Town Rupee Room', 'Region', age='adult')))
-        return self.has_any(is_normal_bottle)
+        # Extra Ruto's Letter are automatically emptied
+        return self.has_any(isBottle) or self.has('Bottle with Letter', 2)
 
 
     def bottle_count(self):
-        return sum([pritem for pritem in self.prog_items if pritem.startswith('Bottle') and pritem != 'Bottle with Letter' and (pritem != 'Bottle with Big Poe' or self.can_reach('Castle Town Rupee Room', 'Region', age='adult'))])
+        # Extra Ruto's Letter are automatically emptied
+        return sum([pritem for pritem in self.prog_items if isBottle(pritem)]) + max(self.prog_items['Bottle with Letter'] - 1, 0)
 
 
     def has_hearts(self, count):
         # Warning: This only considers items that are marked as advancement items
         return self.heart_count() >= count
 
+    def has_shield(self):
+        #The mirror shield does not count as it cannot reflect deku scrub attack
+        return (self.is_adult() and self.has('Buy Hylian Shield')) or \
+        (self.is_child() and self.has('Buy Deku Shield'))
 
     def heart_count(self):
         # Warning: This only considers items that are marked as advancement items
@@ -391,6 +405,8 @@ class State(object):
     def has_fire_source(self):
         return self.can_use('Dins Fire') or self.can_use('Fire Arrows')
 
+    def has_fire_source_with_torch(self):
+        return self.has_fire_source() or (self.is_child() and self.has_sticks())
 
     def guarantee_hint(self):
         if(self.world.hints == 'mask'):

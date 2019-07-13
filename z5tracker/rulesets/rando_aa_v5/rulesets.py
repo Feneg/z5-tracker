@@ -205,17 +205,6 @@ class Ruleset(object):
 
         self.state.remove(self.inventory[itemname])
 
-    def is_adult(self) -> bool:
-        '''
-        Check whether adult items are available.
-
-        Returns:
-            bool: True if adult items are available
-        '''
-
-        return (self.state.can_become_adult() or
-                self.location_available('Master Sword Pedestal', 'item'))
-
     def check_rule(self, rule: operator.methodcaller) -> bool:
         '''
         Check given rule.
