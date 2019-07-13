@@ -112,14 +112,14 @@ class Ruleset(object):
 
         assert loctype in ('item', 'skulltula')
         listing = self.items if loctype == 'item' else self.skulls
+        usestate = self.state if state is None else state
         if isinstance(listing[name], regions.Region):
             available = all(
-                location.can_reach(self.state if state is None else state)
+                usestate.can_reach(location)
                 for location in listing[name].locations)
         else:
             try:
-                available = listing[name].can_reach(
-                    self.state if state is None else state)
+                available = usestate.can_reach(listing[name])
             except AttributeError:
                 available = False
 
