@@ -101,8 +101,9 @@ class Ruleset(object):
         '''
 
         regions = {
-            locationlist.location_table[l][3]
-            for l in locationlist.location_table}
+            locationlist.location_table[l][4][0]
+            for l in locationlist.location_table
+            if locationlist.location_table[l][4]}
         return regions        
 
     def list_locations(self, loctype: str) -> list:

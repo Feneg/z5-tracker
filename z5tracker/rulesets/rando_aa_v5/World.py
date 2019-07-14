@@ -120,7 +120,7 @@ class World(object):
             raise Exception("JSON parse error around text:\n" + \
                             json_string[error.pos-35:error.pos+35] + "\n" + \
                             "                                   ^^\n")
-
+            
         for region in region_json:
             new_region = Region(region['region_name'])
             new_region.world = self
@@ -499,7 +499,7 @@ class World(object):
                     max_progressive = self.settings.big_poe_count
                 else:
                     dupe_locations = duplicate_item_woth[world_id].get(item.name, [])
-                    max_progressive = item.special.get('Progressive', 1)
+                    max_progressive = item.special.get('progressive', 1)
 
                 # If this is a required item location, then it is not useless
                 for dupe_location in dupe_locations:

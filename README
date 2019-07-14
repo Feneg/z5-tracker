@@ -2,7 +2,7 @@ z5-tracker: Zelda 5 item and location helper program
 
 Note: At time of writing, this program has undergone very little testing. Beware bugs.
 
-Keywords: map tracker, item tracker, hint tracker, multi-platform, Python 3
+Keywords: map tracker, item tracker, hint tracker, multi-platform, Python 3, Zelda 5, Ocarina of Time
 
 Overview:
 z5-tracker allows you to mark found items and checked locations for The Legend of Zelda: Ocarina of Time. It is primarily meant to be used with the item randomiser created by AmazingAmpharos in 2018, but can also be used for a normal playthrough.
@@ -12,6 +12,8 @@ Note for Windows:
 You will need to install Python. Get it at https://www.python.org/downloads/. Once that is done, you can just run 'z5-tracker.py' (double clicking it should suffice).
 Special note for macOS:
 Neither do I have any experience with macOS nor do I have access to an installation for testing. So I am entirely unaware as to the way to go around running Python 3 programs on that platform. That said, z5-tracker should run, but I've no way to test this.
+Yet another note (for all systems):
+z5-tracker is available on Pypi. I recommend installing it via 'pip3 install --user z5-tracker'.
 
 Usage:
 z5-tracker is written in Python 3 and requires at least version 3.6. Run it from z5-tracker's root folder (the one with this readme) by executing 'z5tracker.py' or -- if you installed it via setup.py -- by just launching z5-tracker from anywhere.
@@ -43,7 +45,7 @@ A few entries are just shown for information and not meant to be changed. (You c
 Restart z5-tracker.
 
 - z5-tracker seems to be assume closed Door of Time. How do I change that?
-Change the 'Rules string' setting. Take the 'Setting String' from the randomiser GUI and paste it here. You should probably make sure that the string you use is the same as the one used to patch your game (or at least that you know the differences). Then restart the program.
+Change the 'Rules string' setting. Take the 'Setting String' from the randomiser GUI and paste it in the options. You should probably make sure that the string you use is the same as the one used to patch your game (or at least that you know the differences). Then restart the program.
 A note regarding the adult map: Assuming you play starting as child, adult location will only displayed as available once you mark the Master Sword. That's just how the randomiser works. So, if you play with open Door of Time, simply click Master Sword right at the start. This is not an issue with if starting as adult.
 
 - Is scrubshuffle/shopsanity/cowsanity/skullsanity supported?
@@ -52,6 +54,9 @@ As for skullsanity, skulltula locations are already available and dungeon item c
 
 - Master Quest?
 I've never played anything but the original N64 release of Zelda 5. I therefore do not know anything about Master Quest. That said, supporting it shouldn't be too hard. If somebody can provide me with maps of those dungeons and the pixel coordinates of item locations, I would be willing to include them.
+
+- Entrance randomiser?
+Currently not. z5-tracker actually contains all the backend required for implementing entrace tracking, but it still requires a front-end. Unfortunately, that is still quite a bit of work, so no promises. However, if it comes to be, it will probably not be tested very well, since I'm already struggling with limited time. (Testing actually takes the brunt of my time on this project.)
 
 - Why does this program open so many windows?
 I chose a multi-window layout to give flexibility to the program layout. I understand that especially in Microsoft Windows this might feel awkward. However, I feel that the benefit outweighs the cost.
@@ -63,14 +68,14 @@ Well, I can't really refute that statement. In all honesty, I'm not really at ho
 You can edit the 'Map size' option. Just put in any number you want. Note that using very small values (i.e. less than 0.25) will probably cause issues. Also note that this option has a direct impact on computing required to open any map. Good numbers in this regard are 0.25, 0.5, 1, 2, ...
 
 - An item location is shown as unavailable, but I know a trick/glitch to reach it anyway. Wouldn't it be possible to somehow show it as available?
-I am considering including such markings for certain presets built into the randomiser ('Accessible' and the like). I previously planned to use the upcoming glitched ruleset, but that might be a little bit too extreme.
+I previously planned to use the upcoming glitched ruleset to implement this, but now that it is slowly materialising I can see that this might be a little bit too extreme. I honestly don't know how to approach this anymore, so I'm open for suggestions.
 Remember: It is always possible to adjust the 'Rules string' setting to include certain locations.
 
 - I have Slingshot but no Bow. Why is Dodongo's Cavern marked as fully available on the adult map?
-This used to be an issue with all locations -- they were marked as available on all maps even if only one age had the required item. When I resolved this I consciously left dungeons out. This is because of Spirit Temple, which spans both ages by design. Dodongo's Cavern is left as the only dungeon suffering from this decision. I find that acceptable since most of the time people will do their utmost to finish Dodongo's Cavern as adult and won't care about having or not having a bow.
+This used to be an issue with all locations -- they were marked as available on all maps even if only one age had the required items. When I resolved this I consciously left dungeons out. This is because of Spirit Temple, which spans both ages by design. Dodongo's Cavern is left as the only dungeon suffering from this decision. I find that acceptable since most of the time people will do their utmost to finish Dodongo's Cavern as adult and won't care about having or not having a bow.
 
-- Why are locations in skulltula house marked as unavailable despite having the necessary tokens?
-You probably have entered rules in the settings which excludes requiring a set amount of skulltullas (or any). Locations which have been disabled in the randomiser rules will never show up as available -- unless you mark the option 'Show disabled locations'. (Don't forget to restart.)
+- Why are some locations in the skulltula house marked as unavailable despite having the necessary tokens?
+You probably have entered rules in the settings which exclude requiring a set amount of skulltullas (or any). Locations which have been disabled in the randomiser rules will never show up as available -- unless you mark the option 'Show disabled locations'. (Don't forget to restart.)
 
 - There are a lot of skulltulas marked as unavailable despite clearly having access to them.
 Is the option that nighttime skulltulas require Sun Song enabled? This will have exactly this effect. Remember that it is always possible to set a rules string different from the one used to created the randomised game in order to adjust the location display to one's needs.
