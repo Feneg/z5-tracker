@@ -9,13 +9,13 @@ MAPSCALE = 0.25
 
 MAPSPEC = {
     'item_child': {
-        'title': 'Child Item Map', 'loctype': 'item', 'mapscale': 1},
+        'title': 'Child Item Map', 'loctype': 'item', 'mapscale': 2},
     'item_adult': {
-        'title': 'Adult Item Map', 'loctype': 'item', 'mapscale': 1},
+        'title': 'Adult Item Map', 'loctype': 'item', 'mapscale': 2},
     'skulls_child': {
-        'title': 'Child Skulltula Map', 'loctype': 'skulltula', 'mapscale': 1},
+        'title': 'Child Skulltula Map', 'loctype': 'skulltula', 'mapscale': 2},
     'skulls_adult': {
-        'title': 'Adult Skulltula Map', 'loctype': 'skulltula', 'mapscale': 1},
+        'title': 'Adult Skulltula Map', 'loctype': 'skulltula', 'mapscale': 2},
     'Deku Tree': {
         'title': 'Inside the Deku Tree', 'loctype': 'dungeon', 'mapscale': 1},
     'Dodongos Cavern': {
