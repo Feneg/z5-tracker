@@ -175,7 +175,8 @@ class Ruleset(object):
         locs = self.dungeon_locations(name)
         locs = locs[0] if loctype == 'item' else locs[1]
         listing = self.items if loctype == 'item' else self.skulls
-        available = all(listing[l].can_reach(fullstate) for l in locs)
+        available = all(
+            fullstate.can_reach(listing[l], age='either') for l in locs)
         return available
 
     def location_visible(
