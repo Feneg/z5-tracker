@@ -81,8 +81,8 @@ class DungeonWindow(tk.Toplevel):
                 lambda _: storage.autosave('Dungeons', self.tracker),
                 add='+')
 
-        widget.grid(column=dungeon.location[0], row=dungeon.location[1],
-                    sticky=tk.N+tk.W)
+        widget.grid(
+            column=dungeon.location[0], row=dungeon.location[1], sticky=misc.A)
         dungeon.register_widget(widget)
 
     def reset(self) -> None:
@@ -110,7 +110,7 @@ class Dungeon(ttk.Frame):
         self.scaling = scaling
         scale = scaling[0] / scaling[1]
 
-        super().__init__(parent)
+        super().__init__(parent, borderwidth=2, relief=tk.RIDGE)
         self.child = ttk.Label(self)
         self.child.grid(column=0, row=0, sticky=misc.A)
 
@@ -118,7 +118,8 @@ class Dungeon(ttk.Frame):
             tk.PhotoImage(file=dungeon.icon, master=parent)
             if dungeon.icon else None)
         icon = self._icon_scale(icon)
-        self.pic = ttk.Label(self.child, image=icon)
+        self.pic = ttk.Label(
+            self.child, borderwidth=1, image=icon, relief=tk.RAISED)
         self.pic.grid(column=0, row=0)
         self.icon = icon
 
