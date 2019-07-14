@@ -64,7 +64,8 @@ class MapDisplay(tk.Toplevel):
         if (
                 self.identifier.endswith('_child') or
                 self.identifier.endswith('_adult')):
-            mapimage = 'overworld'
+            mapimage = (
+                'overworld_bw' if CONFIG['grey_overworld'] else 'overworld')
         else:
             mapimage = DUNGEONLOCATIONS[self.identifier]['mapimg']
 

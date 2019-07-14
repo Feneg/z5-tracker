@@ -29,15 +29,16 @@ class ConfigWindow(tk.Toplevel):
         self.frame.grid(sticky=misc.A)
 
         self._display(1,'Autosave', CONFIG['autosave'])
-        self._float(2, 'Icon size', 'icon_size')
-        self._display(3, 'Item layout', CONFIG['layout'])
-        self._float(4, 'Map size', 'map_size')
-        self._display(5, 'Ruleset', CONFIG['ruleset'])
-        self._string(6, 'Rules string', 'rule_string', _validate_rule_string)
-        self._checkbox(7, 'Show disabled locations', 'show_disabled')
-        self._checkbox(8, 'Show all scrubs', 'show_scrubs')
-        self._checkbox(9, 'Show shops', 'show_shops')
-        self._display(10, 'Window Layout', CONFIG['window_layout'])
+        self._checkbox(2, 'Greyscale overworld', 'grey_overworld')
+        self._float(3, 'Icon size', 'icon_size')
+        self._display(4, 'Item layout', CONFIG['layout'])
+        self._float(5, 'Map size', 'map_size')
+        self._display(6, 'Ruleset', CONFIG['ruleset'])
+        self._string(7, 'Rules string', 'rule_string', _validate_rule_string)
+        self._checkbox(8, 'Show disabled locations', 'show_disabled')
+        self._checkbox(9, 'Show all scrubs', 'show_scrubs')
+        self._checkbox(10, 'Show shops', 'show_shops')
+        self._display(11, 'Window Layout', CONFIG['window_layout'])
 
     def _display(self, row: int, name: str, value: str) -> None:
         '''

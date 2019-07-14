@@ -9,6 +9,7 @@ __all__ = 'DEFAULT', 'OVERWRITE'
 
 DEFAULT = (
     ('autosave', str, 'autosave.json'),
+    ('grey_overworld', bool, False),
     ('gui', str, 'gui-tkinter'),
     ('icon_size', float, 1),
     ('layout', str, 'order.conf'),
