@@ -486,46 +486,6 @@ ITEMLOCATIONS = {
         'maps': (),
         'coordinates': (),
         'type': 'npc'},
-    "Deku Baba Sticks": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'enemy'},
-    "Deku Baba Nuts": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'enemy'},
-    "Forest Temple Deku Baba Sticks": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'enemy'},
-    "Forest Temple Deku Baba Nuts": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'enemy'},
-    "Goron City Stick Pot": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'free'},
-    "Bottom of the Well Stick Pot": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'free'},
-    "Zoras Domain Stick Pot": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'free'},
-    "Zoras Domain Nut Pot": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'free'},
-    "Dampes Grave Nut Pot": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'free'},
-    "Spirit Temple Nut Crate": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'free'},
     "Gerudo Fortress Carpenter Rescue": {
         'maps': ('item_adult',),
         'coordinates': (358, 524),
@@ -560,6 +520,76 @@ ITEMLOCATIONS = {
         'coordinates': (),
         'type': 'chest'},
 
+    # Nuts and sticks
+    "Deku Baba Sticks": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'enemy'},
+    "Deku Baba Nuts": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'enemy'},
+    "Stick Pot": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'free'},
+    "Nut Pot": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'free'},
+    "Nut Crate": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'free'},
+    "Blue Fire": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'free'},
+    "Lone Fish": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'free'},
+    "Fish Group": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'free'},
+    "Bug Rock": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'free'},
+    "Bug Shrub": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'free'},
+    "Wandering Bugs": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'free'},
+    "Fairy Pot": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'free'},
+    "Free Fairies": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'free'},
+    "Butterfly Fairy": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'free'},
+    "Gossip Stone Fairy": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'free'},
+    "Fairy Pond": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'free'},
+    "Big Poe Kill": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'enemy'},
+    
     # Deku Tree
     "Deku Tree Lobby Chest": {
         'maps': ('Deku Tree',),

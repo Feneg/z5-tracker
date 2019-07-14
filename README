@@ -104,7 +104,7 @@ No, they are not. They are exactly in their natural order, which is as they are 
 Because there aren't any better icons. The buttons for Ruto's letter and Big Poes therefore show a bottle. Marking them has no effect on the rules regarding bottles -- you will have to click the bottle icon, too.
 
 - Will you support TestrunnerSRL's randomiser fork?
-Given that a lot of people now consider this fork 'official', I do follow suit. I will, however, only support the master branch. If you wish compatibility with a development version, you can always add a ruleset package yourself. However, be aware that you have to edit the import lines. Unlike z5-tracker, the randomiser is not packaged.
+Given that a lot of people now consider this fork 'official', I do follow suit. I will, however, only support the master branch. If you wish compatibility with a development version, you can always add a ruleset package yourself. However, be aware that you have to edit the import lines. Unlike z5-tracker, the randomiser is not packaged. (Fair warning to those who didn't believe me and found the 'next' branch: It's entirely untested.)
 
 - The item location names seem to miss apostrophes.
 The names used are precisely the same as the ones in spoiler logs. I believe everybody will be happier if I don't invent another set of location names.
