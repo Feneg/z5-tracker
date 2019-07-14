@@ -15,7 +15,7 @@ MAPSPEC = {
     'skulls_child': {
         'title': 'Child Skulltula Map', 'loctype': 'skulltula', 'mapscale': 1},
     'skulls_adult': {
-        'title': 'Adult Skulltula Map', 'loctype': 'skulltula', 'mapscale': 1}
+        'title': 'Adult Skulltula Map', 'loctype': 'skulltula', 'mapscale': 1},
     'Deku Tree': {
         'title': 'Inside the Deku Tree', 'loctype': 'dungeon', 'mapscale': 1},
     'Dodongos Cavern': {
