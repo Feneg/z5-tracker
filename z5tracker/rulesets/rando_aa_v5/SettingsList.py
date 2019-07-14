@@ -1,7 +1,7 @@
 import argparse
 import re
 import math
-from .Cosmetics import get_tunic_color_options, get_navi_color_options, get_sword_color_options
+from .Cosmetics import get_tunic_color_options, get_navi_color_options, get_sword_color_options, get_gauntlet_color_options, get_magic_color_options, get_heart_color_options
 from .Location import LocationIterator
 from . import Sounds as sfx
 
@@ -148,16 +148,6 @@ logic_tricks = {
         'tooltip' : '''\
                     Use the bombflower on the stairs or near Medigoron.
                     Timing is tight, especially without backwalking
-                    '''},
-    'Morpha with Gold Scale': {
-        'name'    : 'logic_morpha_with_scale',
-        'tooltip' : '''\
-                    Allows entering Water Temple and beating
-                    Morpha with Gold Scale instead of Iron Boots.
-                    Only applicable for keysanity and keysy due
-                    to the logic always seeing every chest in
-                    Water Temple that could contain the Boss Key
-                    as requiring Iron Boots.
                     '''},
     'Fewer Tunic Requirements': {
         'name'    : 'logic_fewer_tunic_requirements',
@@ -650,6 +640,23 @@ setting_infos = [
             'randomize_key': 'randomize_settings',
         },
     ),
+    Checkbutton(
+        name           = 'child_lake_hylia_control',
+        gui_text       = 'Child May Drain Lake Hylia',
+        gui_group      = 'open',
+        gui_tooltip    = '''\
+            The switch to drain Lake Hylia after defeating morpha is
+            enabled for child (in addition to adult).
+
+            This option gives another dungeon entrance available to
+            child for Entrance Randomizer and adds more items
+            potentially accessible from completing Water Temple.
+        ''',
+        shared         = True,
+        gui_params     = {
+            'randomize_key': 'randomize_settings',
+        },
+    ),
     Combobox(
         name           = 'gerudo_fortress',
         default        = 'normal',
@@ -1061,6 +1068,40 @@ setting_infos = [
         gui_params     = {
             'randomize_key': 'randomize_settings',
         },
+    ),
+    Checkbutton(
+        name           = 'shuffle_dungeon_entrances',
+        gui_text       = 'Shuffle Dungeon Entrances',
+        gui_group      = 'shuffle',
+        gui_tooltip    = '''\
+                         Shuffle the entrances to dungeons including mediallion
+                         dungeons, stone dungeons, bottom of the well, ice cavern,
+                         and gerudo training grounds. Ganons castle is not shuffled.
+
+                         The dungeon entrances for the Deku Tree, Fire Temple and
+                         Bottom of the Well are opened for both adult and child to
+                         improve randomization. The Fire Temple entrance from Bolero
+                         is always in logic for child regardless of Tunic settings.
+
+                         Dungeons will be guaranteed reachable at an age where link
+                         can fully complete the dungeon if 'All locations reachable'
+                         is selected. This may not always be the vanilla intended age.
+
+                         Blue warps will return link to the new dungeons entrance.
+                         Lake Hylia will be filled for adult after defeating Morpha.
+
+                         Master quest dungeons and random settings are not yet
+                         supported, coming soon!
+                         ''',
+        default        = False,
+        shared         = True,
+        gui_params     = {
+            'randomize_key': 'randomize_settings',
+            'distribution':  [
+                (False, 1),
+            ]
+        },
+        dependency     = lambda settings: False if settings.mq_dungeons_random or settings.mq_dungeons != 0 else None,
     ),
     Combobox(
         name           = 'shuffle_scrubs',
@@ -1899,11 +1940,85 @@ setting_infos = [
             'group':  'sword_trails',
             'widget': 'Combobox',
             'tooltip':'''\
+                      'Random Choice': Choose a random
+                      color from this list of colors.
+                      'Completely Random': Choose a random
+                      color from any color the N64 can draw.
+                      'Rainbow': Rainbow sword trails.
+            '''
+        }
+    ),
+    Setting_Info(
+        name           = 'silver_gauntlets_color',
+        type           = str,
+        shared         = False,
+        choices        = get_gauntlet_color_options(),
+        default        = 'Silver',
+        gui_params     = {
+            'text':   'Silver Gauntlets Color',
+            'group':  'gauntlet_colors',
+            'widget': 'Combobox',
+            'tooltip': '''\
                 'Random Choice': Choose a random
                 color from this list of colors.
                 'Completely Random': Choose a random
                 color from any color the N64 can draw.
                 'Rainbow': Rainbow sword trails.
+            '''
+        },
+    ),
+    Setting_Info(
+        name           = 'golden_gauntlets_color',
+        type           = str,
+        shared         = False,
+        choices        = get_gauntlet_color_options(),
+        default        = 'Gold',
+        gui_params={
+            'text':   'Golden Gauntlets Color',
+            'group':  'gauntlet_colors',
+            'widget': 'Combobox',
+            'tooltip': '''\
+                'Random Choice': Choose a random
+                color from this list of colors.
+                'Completely Random': Choose a random
+                color from any color the N64 can draw.
+                'Rainbow': Rainbow sword trails.
+            '''
+        },
+    ),
+    Setting_Info(
+        name           = 'heart_color',
+        type           = str,
+        shared         = False,
+        choices        = get_heart_color_options(),
+        default        = 'Red',
+        gui_params     = {
+            'text':   'Heart Color',
+            'group':  'ui_colors',
+            'widget': 'Combobox',
+            'tooltip': '''\
+                'Random Choice': Choose a random
+                color from this list of colors.
+                'Completely Random': Choose a random
+                color from any color the N64 can draw.
+            '''
+        },
+    ),
+    Setting_Info(
+        name           = 'magic_color',
+        type           = str,
+        shared         = False,
+        choices        = get_magic_color_options(),
+        default        = 'Green',
+        gui_params     = {
+            'text':   'Magic Color',
+            'group':  'ui_colors',
+            'widget': 'Combobox',
+            'tooltip': '''\
+                'Random Choice': Choose a random
+                color from this list of colors.
+                'Completely Random': Choose a random
+                color from any color the N64 can draw.
             '''
         },
     ),

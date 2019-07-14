@@ -17,7 +17,7 @@ Usage:
 z5-tracker is written in Python 3 and requires at least version 3.6. Run it from z5-tracker's root folder (the one with this readme) by executing 'z5tracker.py' or -- if you installed it via setup.py -- by just launching z5-tracker from anywhere.
 So far, it has only been tested on Linux -- specifically under Xfce using CPython 3.6 (with a very basic startup test on Windows). However, since it does not use any external dependencies, every distribution of CPython 3.6 or higher should be able to run it, including on non-Linux operating systems. I don't have much experience with alternative Python implementations, but if they include the required libraries -- especially tkinter -- then they should work, too.
 Please note that on any non-Windows system a folder $HOME/.z5-tracker is created on start-up. This folder is used to store some configurations and should be of negligible size. The corresponding location in Windows is $LOCALAPPDATA\z5-tracker.
-Once you've started z5-tracker, you probably want to adjust the 'Rules string' setting in the options. This defines the rules applied to item locations and can be copied straight from the randomiser GUI. Don't forget to restart after changing this option. Fair warning: You probably want to avoid using rule strings which contain randomised settings. After all, z5-tracker has no idea what the randomiser will have rolled.
+Once you've started z5-tracker, you probably want to adjust the 'Rules string' setting in the options. This defines the rules applied to item locations and can be copied straight from the randomiser GUI. Don't forget to restart after changing this option. Fair warning: You probably want to avoid using rule strings which contain randomised settings. After all, z5-tracker has no idea what the randomiser might have chosen.
 
 Limitations:
 This helper program is considered fully functional, but has a lot of rough edges. These can be understood as little quirks that would take a disproportionate amount of effort to remove -- I basically don't consider them annoying enough to spend a lot of time fixing them. (Most of these quirks are described further on in this readme.)
@@ -65,6 +65,9 @@ You can edit the 'Map size' option. Just put in any number you want. Note that u
 - An item location is shown as unavailable, but I know a trick/glitch to reach it anyway. Wouldn't it be possible to somehow show it as available?
 I am considering including such markings for certain presets built into the randomiser ('Accessible' and the like). I previously planned to use the upcoming glitched ruleset, but that might be a little bit too extreme.
 Remember: It is always possible to adjust the 'Rules string' setting to include certain locations.
+
+- I have Slingshot but no Bow. Why is Dodongo's Cavern marked as fully available on the adult map?
+This used to be an issue with all locations -- they were marked as available on all maps even if only one age had the required item. When I resolved this I consciously left dungeons out. This is because of Spirit Temple, which spans both ages by design. Dodongo's Cavern is left as the only dungeon suffering from this decision. I find that acceptable since most of the time people will do their utmost to finish Dodongo's Cavern as adult and won't care about having or not having a bow.
 
 - Why are locations in skulltula house marked as unavailable despite having the necessary tokens?
 You probably have entered rules in the settings which excludes requiring a set amount of skulltullas (or any). Locations which have been disabled in the randomiser rules will never show up as available -- unless you mark the option 'Show disabled locations'. (Don't forget to restart.)

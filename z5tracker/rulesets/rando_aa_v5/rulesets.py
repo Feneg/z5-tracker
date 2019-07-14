@@ -32,23 +32,46 @@ class Ruleset(object):
 
     def __init__(self):
 
+        # Load game settings from rules string.
         self.settings = settings.Settings({})
         self.settings.update_with_settings_string(CONFIG['rule_string'])
+
+        # Special consideration for difficult moves. Something like is is also
+        # done by the randomiser.
         for trick in logic_tricks:
             self.settings.__dict__[logic_tricks[trick]['name']] = (
                 logic_tricks[trick]['name']
                 in self.settings.__dict__['allowed_tricks'])
+
+        # Set up game data.
         self.world = world.World(self.settings)
         self.world.load_regions_from_json(os.path.join(
             os.path.dirname(__file__), 'data', 'World', 'Overworld.json'))
+
+        # Set up dungeons.
         dungeons.create_dungeons(self.world)
+
+        # Connect entrances to create a coherent world. If entrance
+        # randomisation is ever supported, this will need to be skipped. The
+        # randomiser used to call this but now instead gets here via
+        # set_entrances() (which we most certainly don't want to call.)
         self.world.initialize_entrances()
+
+        # Set item location rules.
         rules.set_rules(self.world)
+
+        # Create game state.
         self.state = state.State(self.world)
+
+        # Permanently disable certain location. This is a little bit hacky,
+        # but seems to be one of two possible solution. The other one is only
+        # just slightly less hacky.
         if not CONFIG['show_disabled']:
             for loc in self.world.get_locations():
                 if loc.disabled == locationclass.DisableType.PENDING:
                     loc.locked = True
+
+        # Load our own internal data.
         self.items = {}
         self.skulls = {}
         for i in self.world.regions:
@@ -63,6 +86,7 @@ class Ruleset(object):
                 elif i.name in maps.ITEMLOCATIONS:
                     self.items[i.name] = i
 
+        # Create our own game state information.
         self.inventory = {}
         for equipment in itemlist.item_table:
             itm = itemlist.item_table[equipment]

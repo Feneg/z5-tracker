@@ -1521,10 +1521,6 @@ ITEMLOCATIONS = {
         'maps': ('item_child', 'item_adult'),
         'coordinates': (240, 1660),
         'type': 'stone'},
-    'Generic Grotto Gossip Stone': {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (1200, 480),
-        'type': 'stone'},
     'Gerudo Valley Gossip Stone': {
         'maps': ('item_child', 'item_adult'),
         'coordinates': (530, 661),
