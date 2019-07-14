@@ -159,7 +159,7 @@ ITEMLOCATIONS = {
         'coordinates': (626, 2160),
         'type': 'song'},
     "Sheik in Crater": {
-        'maps': ('item_child', 'item_adult'),
+        'maps': ('item_adult',),
         'coordinates': (26, 1874),
         'type': 'song'},
     "Sheik in Ice Cavern": {
@@ -381,7 +381,7 @@ ITEMLOCATIONS = {
         'coordinates': (690, 1227),
         'type': 'heart'},
     "Graveyard Freestanding PoH": {
-        'maps': ('item_child', 'item_adult'),
+        'maps': ('item_adult',),
         'coordinates': (335, 1980),
         'type': 'heart'},
     "Gravedigging Tour": {
@@ -1479,7 +1479,7 @@ ITEMLOCATIONS = {
         'type': 'cow',
         'restriction': 'cowsanity'},
     "Links House Cow": {
-        'maps': ('item_child', 'item_adult'),
+        'maps': ('item_adult',),
         'coordinates': (1000, 2180),
         'type': 'cow',
         'restriction': 'cowsanity'},
@@ -1489,7 +1489,7 @@ ITEMLOCATIONS = {
         'type': 'cow',
         'restriction': 'cowsanity'},
     "Gerudo Valley Cow": {
-        'maps': ('item_child', 'item_adult'),
+        'maps': ('item_child',),
         'coordinates': (490, 661),
         'type': 'cow',
         'restriction': 'cowsanity'},

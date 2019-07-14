@@ -11,7 +11,7 @@ INFO = {
     'Deku Tree': {
         'name': 'Inside the Deku Tree', 'reward': True, 'icon': 'emerald',
         'location': (860, 2450),
-        'maps': ('item_child', 'item_adult', 'skulls_child', 'skulls_adult'),
+        'maps': ('item_child', 'skulls_child'),
         'mapimg': 'dungeon_dekutree'},
     'Dodongos Cavern': {
         'name': "Dodongo's Cavern", 'reward': True, 'icon': 'ruby',
