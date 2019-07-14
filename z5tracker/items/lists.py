@@ -85,6 +85,7 @@ ITEMS = (
       ('wallet', 'wallet1', 'wallet2', 'wallet3'), default=1),
     i('Magic Meter', (3, 6), ('Magic', 'Double Magic'), ('magic1', 'magic2')),
     i('Stone of Agony', (4, 6), ('Stone of Agony',), ('agony',)),
+    i('Scarecrow Song', (5, 6), ('Scarecrow',), ('scarecrow',)),
     i('Zeldas Lullaby', (0, 7), ("Zelda's Lullaby",), ('zelda_colored',)),
     i('Eponas Song', (1, 7), ("Epona's Song",), ('epona_colored',),
       link=(('Epona', 1),)),

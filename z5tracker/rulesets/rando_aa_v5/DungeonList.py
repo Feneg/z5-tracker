@@ -3,10 +3,7 @@ import os
 
 from .Dungeon import Dungeon
 from .Item import ItemFactory
-#from Utils import data_path
-def data_path(path=''):
-    return os.path.join(
-        os.path.dirname(os.path.realpath(__file__)), 'data', path)
+from ..compatibility.Utils import data_path
 
 
 dungeon_table = [
@@ -19,6 +16,7 @@ dungeon_table = [
     },
     {
         'name': 'Dodongos Cavern',
+        'hint': 'Dodongo\'s Cavern',
         'boss_key':     0, 
         'small_key':    0,
         'small_key_mq': 0,
@@ -26,6 +24,7 @@ dungeon_table = [
     },
     {
         'name': 'Jabu Jabus Belly',
+        'hint': 'Jabu Jabu\'s Belly',
         'boss_key':     0, 
         'small_key':    0,
         'small_key_mq': 0,
@@ -89,6 +88,7 @@ dungeon_table = [
     },
     {
         'name': 'Ganons Castle',
+        'hint': 'Ganon\'s Castle',
         'boss_key':     1, 
         'small_key':    2,
         'small_key_mq': 3,
@@ -100,6 +100,7 @@ dungeon_table = [
 def create_dungeons(world):
     for dungeon_info in dungeon_table:
         name = dungeon_info['name']
+        hint = dungeon_info['hint'] if 'hint' in dungeon_info else name
         if not world.dungeon_mq[name]:
             dungeon_json = os.path.join(data_path('World'), name + '.json')
         else:
@@ -114,5 +115,5 @@ def create_dungeons(world):
         dungeon_items = ItemFactory(['Map (%s)' % name, 
                                      'Compass (%s)' % name] * dungeon_info['dungeon_item'])
 
-        world.dungeons.append(Dungeon(world, name, boss_keys, small_keys, dungeon_items))
+        world.dungeons.append(Dungeon(world, name, hint, boss_keys, small_keys, dungeon_items))
 

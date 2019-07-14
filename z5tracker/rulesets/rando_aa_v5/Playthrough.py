@@ -31,7 +31,7 @@ class Playthrough(object):
     @staticmethod
     def _expand_regions(exit_queue, region_set, validate,
                         cross_age_queue, cross_age_set):
-        new_exit = lambda exit: exit.connected_region not in region_set
+        new_exit = lambda exit: exit.connected_region != None and exit.connected_region not in region_set
         failed = []
         while exit_queue:
             exit = exit_queue.popleft()
@@ -116,11 +116,13 @@ class Playthrough(object):
             child_failed = Playthrough._expand_regions(
                     child_queue, child_regions, validate_child,
                     adult_queue, adult_regions)
-            # If child reached BDoT, we'll have added BDoT for adult,
-            # but until the state collects MS, there's no point expanding
-            # the sphere given that we check for MS in determining adult accessibility.
-            # So we do it next time.
-            adult_failed.extend(adult_queue)
+            # If child reached BDoT, we'll have added BDoT for adult.
+            # We always have to expand again before checking locations,
+            # since we could have collected all in child before running this.
+            if adult_queue:
+                adult_failed.extend(Playthrough._expand_regions(
+                        adult_queue, adult_regions, validate_adult,
+                        child_failed, child_regions))
 
             # 2. Get all locations in accessible_regions that aren't collected,
             #    and check if they can be reached. Collect them.

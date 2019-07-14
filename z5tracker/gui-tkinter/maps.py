@@ -143,7 +143,8 @@ class MapDisplay(tk.Toplevel):
                     int(c * MAPSCALE * self.scale * self.spec['mapscale'])
                     for c in button['location'])
                 coord.reverse()
-                self.add_button(b, coord, 'dungeon')
+                self.add_button(
+                    b, coord, 'dungeon', DUNGEONLOCATIONS[b]['name'])
 
         # Restore latest button states.
         self._restore_autosave()
@@ -210,7 +211,7 @@ class MapDisplay(tk.Toplevel):
 
     def add_button(
             self, name: str, location: typing.Sequence[int],
-            buttontype: str) -> None:
+            buttontype: str, displayname: str = None) -> None:
         '''
         Add a button to map.
 
@@ -218,6 +219,7 @@ class MapDisplay(tk.Toplevel):
             name: identifier for new button
             location: coordinates for centre of button
             buttontype: type of button
+            displayname: optional name to display
         '''
 
         if buttontype not in BUTTONTYPE:
@@ -239,7 +241,8 @@ class MapDisplay(tk.Toplevel):
                     new, '<ButtonRelease-1>', self.parent.update_buttons,
                     add='+')
         self.m.tag_bind(
-            new, '<Enter>', lambda _: self.helpertext.set(name))
+            new, '<Enter>', lambda _: self.helpertext.set(
+                name if displayname is None else displayname))
         self.m.tag_bind(
             new, '<Leave>', lambda _: self.helpertext.set(''))
 

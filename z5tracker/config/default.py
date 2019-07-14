@@ -15,7 +15,7 @@ DEFAULT = (
     ('layout', str, 'order.conf'),
     ('map_size', float, 1),
     ('ruleset', str, 'rando_aa_v5'),
-    ('rule_string', str, 'FS32JAUZAAMAAAAAEBNJLAA'),
+    ('rule_string', str, 'FS32JAUZAAYAAAAAJC2SWAA'),
     ('show_disabled', bool, False),
     ('show_visible', bool, False),
     ('show_cows', bool, False),
