@@ -98,11 +98,11 @@ ITEMLOCATIONS = {
         'type': 'sub'},
     "Zora River Plateau Open Grotto Chest": {
         'maps': ('item_child', 'item_adult'),
-        'coordinates': (540, 2092),
+        'coordinates': (510, 2092),
         'type': 'sub'},
     "Kokiri Forest Storms Grotto Chest": {
         'maps': ('item_child', 'item_adult'),
-        'coordinates': (845, 2192),
+        'coordinates': (845, 2132),
         'type': 'sub'},
     "Lost Woods Generic Grotto Chest": {
         'maps': ('item_child', 'item_adult'),
@@ -114,7 +114,7 @@ ITEMLOCATIONS = {
         'type': 'sub'},
     "Top of Crater Grotto Chest": {
         'maps': ('item_child', 'item_adult'),
-        'coordinates': (42, 1794),
+        'coordinates': (26, 1794),
         'type': 'sub'},
     "Treasure Chest Game": {
         'maps': ('item_child',),
@@ -160,7 +160,7 @@ ITEMLOCATIONS = {
         'type': 'song'},
     "Sheik in Crater": {
         'maps': ('item_child', 'item_adult'),
-        'coordinates': (26, 1834),
+        'coordinates': (26, 1874),
         'type': 'song'},
     "Sheik in Ice Cavern": {
         'maps': ('Ice Cavern',),
@@ -250,7 +250,7 @@ ITEMLOCATIONS = {
         'type': 'npc'},
     "Skull Kid": {
         'maps': ('item_child',),
-        'coordinates': (785, 2085),
+        'coordinates': (785, 2055),
         'type': 'npc'},
     "Ocarina Memory Game": {
         'maps': ('item_child',),
@@ -1623,15 +1623,47 @@ ITEMLOCATIONS = {
         'type': 'stone'},
     'Zoras River Plateau Gossip Stone': {
         'maps': ('item_child', 'item_adult'),
-        'coordinates': (470, 2100),
-        'type': 'stone'},
-    'Zoras River Plateau Gossip Stone': {
-        'maps': ('item_child', 'item_adult'),
-        'coordinates': (500, 2092),
+        'coordinates': (470, 2092),
         'type': 'stone'},
     'Zoras River Waterfall Gossip Stone': {
         'maps': ('item_child', 'item_adult'),
         'coordinates': (470, 2400),
+        'type': 'stone'},
+    'Field West Castle Town Grotto Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (440, 1332),
+        'type': 'stone'},
+    'Remote Southern Grotto Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (925, 1467),
+        'type': 'stone'},
+    'Field Near Lake Outside Fence Grotto Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (1017, 1246),
+        'type': 'stone'},
+    'Kakariko Back Grotto Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (286, 1865),
+        'type': 'stone'},
+    'Zora River Plateau Open Grotto Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (550, 2092),
+        'type': 'stone'},
+    'Kokiri Forest Storms Grotto Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (835, 2092),
+        'type': 'stone'},
+    'Lost Woods Generic Grotto Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (777, 2109),
+        'type': 'stone'},
+    'Mountain Storms Grotto Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (158, 1745),
+        'type': 'stone'},
+    'Top of Crater Grotto Gossip Stone': {
+        'maps': ('item_child', 'item_adult'),
+        'coordinates': (26, 1834),
         'type': 'stone'},
 }
 
