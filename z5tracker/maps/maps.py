@@ -72,14 +72,6 @@ ITEMLOCATIONS = {
         'maps': ('item_child', 'item_adult'),
         'coordinates': (710, 2180),
         'type': 'sub'},
-    "Silver Gauntlets Chest": {
-        'maps': ('Spirit Temple',),
-        'coordinates': (2710, 2410),
-        'type': 'chest'},
-    "Mirror Shield Chest": {
-        'maps': ('Spirit Temple',),
-        'coordinates': (2710, 2920),
-        'type': 'chest'},
     "Field West Castle Town Grotto Chest": {
         'maps': ('item_child', 'item_adult'),
         'coordinates': (440, 1372),
@@ -789,6 +781,14 @@ ITEMLOCATIONS = {
         'type': 'chest'},
 
     # Spirit Temple
+    "Silver Gauntlets Chest": {
+        'maps': ('Spirit Temple',),
+        'coordinates': (2710, 2410),
+        'type': 'chest'},
+    "Mirror Shield Chest": {
+        'maps': ('Spirit Temple',),
+        'coordinates': (2710, 2920),
+        'type': 'chest'},
     "Spirit Temple Child Left Chest": {
         'maps': ('Spirit Temple',),
         'coordinates': (1310, 140),

@@ -46,7 +46,7 @@ Restart z5-tracker.
 
 - z5-tracker seems to be assume closed Door of Time. How do I change that?
 Change the 'Rules string' setting. Take the 'Setting String' from the randomiser GUI and paste it in the options. You should probably make sure that the string you use is the same as the one used to patch your game (or at least that you know the differences). Then restart the program.
-A note regarding the adult map: Assuming you play starting as child, adult location will only displayed as available once you mark the Master Sword. That's just how the randomiser works. So, if you play with open Door of Time, simply click Master Sword right at the start. This is not an issue with if starting as adult.
+A note regarding changing age: Contrary to what one might expect, the ability to switch from child to adult and vise versa is not linked to being able to access the Master Sword Pedestal but rather posessing the Master Sword. That's just how the randomiser works. So if you play with open Door of Time, mark Master Sword right from the start to enable displaying locations on both maps.
 
 - Is scrubshuffle/shopsanity/cowsanity/skullsanity supported?
 Scrubshuffle, shopsanity and cowsanity should be available -- all related item locations exist. You have to adjust the 'Rules string' option and mark the settings to show all scrubs/shops/cows. This is, however, even less well tested than normal mode.

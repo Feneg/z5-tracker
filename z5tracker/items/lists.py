@@ -60,7 +60,7 @@ ITEMS = (
             ('Prescription', 8), ('Eyeball Frog', 9), ('Eyedrops', 10),
             ('Claim Check', 11))),
     i('Kokiri Sword', (0, 4), ('Kokiri Sword',), ('sword1',)),
-    i('Master Sword', (1, 4), ('Master Sword',), ('sword2',)),
+    i('Time Travel', (1, 4), ('Master Sword',), ('sword2',)),
     i('Biggoron Sword', (2, 4), ('Biggoron Sword',), ('sword3',)),
     i('Deku Shield', (3, 4), ('Deku Shield',), ('shield1',),
       link=(('Buy Deku Shield', 1),)),
