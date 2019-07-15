@@ -23,7 +23,7 @@ INFO = {
         'location': (310, 2460), 'maps': ('item_child', 'skulls_child'),
         'mapimg': 'dungeon_jabujabu'},
     'Ice Cavern': {
-        'name': 'Ice Cavern', 'reward': False, 'icon': 'serenade',
+        'name': 'Ice Cavern', 'reward': False, 'icon': 'bottle_fire',
         'location': (242, 2520), 'maps': ('item_adult', 'skulls_adult'),
         'mapimg': 'dungeon_ice'},
     'Bottom of the Well': {

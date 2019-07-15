@@ -151,7 +151,7 @@ class Dungeon(ttk.Frame):
         self.hasbosskey = False
         if dungeon.has_bosskey:
             self.hasbosskey = True
-            self.bosskey.grid(column=3, row=0)
+            self.bosskey.grid(column=3, row=0, sticky=tk.E)
 
         self.keyicon = tk.PhotoImage(file=image(IMG['key'])[0], master=parent)
         self.keyicon = self._icon_scale(self.keyicon)
@@ -166,7 +166,7 @@ class Dungeon(ttk.Frame):
         self.haskeys = False
         if dungeon.max_keys > 0:
             self.haskeys = True
-            self.key.grid(column=2, columnspan=2, row=1)
+            self.key.grid(column=2, columnspan=2, row=1, sticky=tk.E)
 
         self.itemicon = tk.PhotoImage(
             file=image(IMG['chest_full'])[0], master=parent)
