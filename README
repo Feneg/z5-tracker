@@ -87,7 +87,7 @@ As pointed out in the config window, the entire 'visible' functionality is very 
 I assume that anybody checking these will check all four/two of them, so I only placed a single stone for both locations.
 
 - Does marking the Stone of Agony have any effect?
-No.
+It actually does, although maybe not the way you expect. Independent of rules string, all Gossip Stones are always marked as available even without Stone of Agony. Certain hard-to-reach item locations, however, require Stone of Agony being available before being allowed to hold progression. For z5-tracker this means that those item locations -- e.g. Deku Theater Mask of Truth -- are not necessarily shown as available until Stone of Agony is clicked. The precise conditions are defined by the rule string.
 
 - I rescued one carpenter and the bridge has been repaired. Why does the map show Haunted Wasteland as unavailable?
 At time of writing, this is a limitation. Just click the button three more times to set the rescued carpenters to four and it will become available.
@@ -102,6 +102,9 @@ No, they are not. They are exactly in their natural order, which is as they are 
 
 - Why are there five different types of bottles?
 Because there aren't any better icons. The buttons for Fish, Ruto's letter, Big Poes and Blue Fire therefore show a bottle. Marking them has no effect on the rules regarding bottles -- you will have to click the bottle icon, too.
+
+- Why does z5-tracker not just mark Jabu Jabu as available as soon as Zoras Fountain is available? Why do I have to mark a Fish? Same for Master Sword, etc.
+Because these things are not necessarily true, especially since the randomiser started to include lots of additional conditional checks due to entrance randomiser. So far I've tried to avoid adding manual assumptions like these because there are so many different settings that can be applied that it is very hard not to forget one of the more obscure ones. That said, I might have the means for an elegant solution and am looking into it. Until then, don't forget clicking fishes!
 
 - Will you support TestrunnerSRL's randomiser fork?
 Given that a lot of people now consider this fork 'official', I do follow suit. I will, however, only support the master branch. If you wish compatibility with a development version, you can always add a ruleset package yourself. However, be aware that you have to edit the import lines. Unlike z5-tracker, the randomiser is not packaged. (Fair warning to those who didn't believe me and found the 'next' branch: It's entirely untested.)

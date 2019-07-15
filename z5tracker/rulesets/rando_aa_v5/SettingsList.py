@@ -568,43 +568,38 @@ setting_infos = [
         default        = False,
         shared         = True,
     ),
-    Checkbutton(
+    Combobox(
         name           = 'open_forest',
-        gui_text       = 'Open Forest',
+        default        = 'open',
+        choices        = {
+            'open':        'Open Forest',
+            'closed_deku': 'Closed Deku',
+            'closed':      'Closed Forest',
+            },
         gui_group      = 'open',
         gui_tooltip    = '''\
-            Mido no longer blocks the path to the Deku Tree,
-            and the Kokiri boy no longer blocks the path out
-            of the forest.
+            Open Forest: Mido no longer blocks the path to the
+            Deku Tree, and the Kokiri boy no longer blocks the path
+            out of the forest.
+            
+            Closed Deku: The Kokiri boy no longer blocks the path
+            out of the forest, but Mido still blocks the path to the
+            Deku Tree, requiring Kokiri Sword and Deku Shield to access
+            the Deku Tree.
 
-            When this option is off, the Kokiri Sword and
-            Slingshot are always available somewhere
-            in the forest.
-
-            This is incompatible with start as adult.
-            This is also forced enabled when shuffling
-            "All Indoors" and/or "Overworld" entrances.
-        ''',
-        default        = True,
-        shared         = True,
-        gui_params     = {
-            'randomize_key': 'randomize_settings',
-        },
-        dependency     = lambda settings: True if settings.entrance_shuffle in ['all-indoors', 'all'] else None,
-    ),
-    Checkbutton(
-        name           = 'open_kakariko',
-        gui_text       = 'Open Kakariko Gate',
-        gui_group      = 'open',
-        gui_tooltip    = '''\
-            The gate in Kakariko Village to Death Mountain Trail
-            is always open instead of needing Zelda's Letter.
-
-            Either way, the gate is always open as an adult.
+            Closed Forest: The Kokiri Sword and Slingshot are always
+            available somewhere in the forest. This is incompatible with
+            Start as Adult and shuffling "All Indoors" and/or "Overworld"
+            entrances will force this to Closed Deku if selected.
         ''',
         shared         = True,
         gui_params     = {
             'randomize_key': 'randomize_settings',
+            'distribution': [
+                ('open', 1),
+                ('closed_deku', 1),
+                ('closed', 1),
+            ],
         },
     ),
     Checkbutton(
@@ -947,6 +942,15 @@ setting_infos = [
         ''',
         shared         = True,
     ),
+	Checkbutton(
+		name           = 'fast_chickens',
+        gui_text       = 'Fast Chickens',
+        gui_group      = 'convenience',
+        gui_tooltip    = '''\
+            Moves all except the Chicken near the pen into the pen.
+        ''',
+        shared         = True,
+    ),
     Checkbutton(
         name           = 'big_poe_count_random',
         gui_text       = 'Random Big Poe Target Count',
@@ -1063,6 +1067,21 @@ setting_infos = [
             Enabling this causes playing Epona's song infront
             of cows to give an item. There are 9 cows, and an
             extra in MQ Jabu
+        ''',
+        default        = False,
+        shared         = True,
+        gui_params     = {
+            'randomize_key': 'randomize_settings',
+        },
+    ),
+    Checkbutton(
+        name           = 'shuffle_beans',
+        gui_text       = 'Shuffle Magic Beans',
+        gui_group      = 'shuffle',
+        gui_tooltip    = '''\
+            Enabling this adds a pack of 10 beans to the item pool
+            and changes the Magic Bean Salesman to sell a random
+            item once at the price of 60 Rupees.
         ''',
         default        = False,
         shared         = True,
@@ -1438,6 +1457,17 @@ setting_infos = [
             '''
         }
     ),
+
+    Checkbutton(
+        name='force_junk',
+        gui_text='Force Junk',
+        gui_group='logic_tab',
+        default=False,
+        gui_tooltip    = '''\
+            Forces blue rupees at excluded locations on this list. Any songs will not have junk at them (unless song sanity is turned on), but will not contain important items. Distribution files supersedes this setting.
+        ''',
+    ),
+
     Setting_Info(
         name           = 'allowed_tricks',
         type           = list,
@@ -1745,7 +1775,7 @@ setting_infos = [
             Closed Forest.
         ''',
         shared         = True,
-        dependency     = lambda settings: 'child' if not settings.open_forest else None,
+        dependency     = lambda settings: 'child' if settings.open_forest == 'closed' else None,
     ),
     Combobox(
         name           = 'default_targeting',

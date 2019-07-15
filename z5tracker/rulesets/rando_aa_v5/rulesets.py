@@ -45,8 +45,10 @@ class Ruleset(object):
 
         # Set up game data.
         self.world = world.World(self.settings)
+        glitch_rules = ('Glitched World' if self.world.logic_rules == 'glitched'
+                        else 'World')
         self.world.load_regions_from_json(os.path.join(
-            os.path.dirname(__file__), 'data', 'World', 'Overworld.json'))
+            os.path.dirname(__file__), 'data', glitch_rules, 'Overworld.json'))
 
         # Set up dungeons.
         dungeons.create_dungeons(self.world)

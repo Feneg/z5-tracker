@@ -15,7 +15,7 @@ DEFAULT = (
     ('layout', str, 'order.conf'),
     ('map_size', float, 1),
     ('ruleset', str, 'rando_aa_v5'),
-    ('rule_string', str, 'AJBNNNEA3MAAYAAAAAJC2SWAA'),
+    ('rule_string', str, 'AJANNNEAUZAA2CAAAAAKADUCA'),
     ('show_disabled', bool, False),
     ('show_visible', bool, False),
     ('show_cows', bool, False),
@@ -31,4 +31,5 @@ OVERWRITE = {
     '1.1.0': {'ruleset', 'rule_string'},
     '1.1.1': set(),
     '1.2.0': set(),
-    '1.2.1': set()}
+    '1.2.1': set(),
+    '1.3.0': {'layout', 'ruleset', 'rule_string'}}

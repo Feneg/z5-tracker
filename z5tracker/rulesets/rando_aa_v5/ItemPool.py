@@ -482,7 +482,6 @@ eventlocations = {
     'Ganon': 'Triforce',
     'Zeldas Letter': 'Zeldas Letter',
     'Pierre': 'Scarecrow Song',
-    'Magic Bean Salesman': 'Magic Bean',
     'Deliver Ruto\'s Letter': 'Deliver Letter',
     "Sell 1 Big Poe": 'Sell Big Poe',
     "Sell 2 Big Poe": 'Sell Big Poe',
@@ -490,22 +489,46 @@ eventlocations = {
     "Sell 4 Big Poe": 'Sell Big Poe',
     'Master Sword Pedestal': 'Time Travel',
     'Epona': 'Epona',
-    'Deku Baba Sticks': 'Deku Stick Drop',
-    'Forest Temple Deku Baba Sticks': 'Deku Stick Drop',
-    'Goron City Stick Pot': 'Deku Stick Drop',
-    'Zoras Domain Stick Pot': 'Deku Stick Drop',
-    'Deku Baba Nuts': 'Deku Nut Drop',
-    'Forest Temple Deku Baba Nuts': 'Deku Nut Drop',
-    'Dampes Grave Nut Pot': 'Deku Nut Drop',
-    'Zoras Domain Nut Pot': 'Deku Nut Drop',
+    'Malon Race': 'Links Cow',
     'Gerudo Fortress Carpenter Rescue': 'Carpenter Rescue',
-    'Haunted Wasteland Bombchu Salesman': 'Bombchus',
+    'Gerudo Fortress Open Gate': 'Gerudo Fortress Gate Open',
+    'Bombchu Bowling Bombchus': 'Bombchu Drop',
+    'Haunted Wasteland Bombchu Salesman': 'Bombchu Drop',
+    'Windmill Drain Well': 'Drain Well',
+    'Goron City Woods Warp from Woods': 'Goron City Woods Warp Open',
+    'Goron City Woods Warp from City': 'Goron City Woods Warp Open',
+    'Goron City Woods Warp from Darunia': 'Goron City Woods Warp Open',
+    'Deku Tree Clear': 'Kokiri Forest Open',
+    'Forest Temple Poe Sisters 1': 'Forest Temple Jo and Beth',
+    'Forest Temple Poe Sisters 2': 'Forest Temple Amy and Meg',
+    'Child in Water Temple': 'Child Water Temple',
+    'Water Temple Clear': 'Lake Refill',
     'Ganons Castle Forest Trial Clear': 'Forest Trial Clear',
     'Ganons Castle Fire Trial Clear': 'Fire Trial Clear',
     'Ganons Castle Water Trial Clear': 'Water Trial Clear',
     'Ganons Castle Shadow Trial Clear': 'Shadow Trial Clear',
     'Ganons Castle Spirit Trial Clear': 'Spirit Trial Clear',
     'Ganons Castle Light Trial Clear': 'Light Trial Clear'
+}
+
+droplocations = {
+    'Deku Baba Sticks': 'Deku Stick Drop',
+    'Deku Baba Nuts': 'Deku Nut Drop',
+    'Stick Pot': 'Deku Stick Drop',
+    'Nut Pot': 'Deku Nut Drop',
+    'Nut Crate': 'Deku Nut Drop',
+    'Blue Fire': 'Blue Fire',
+    'Lone Fish': 'Fish',
+    'Fish Group': 'Fish',
+    'Bug Rock': 'Bugs',
+    'Bug Shrub': 'Bugs',
+    'Wandering Bugs': 'Bugs',
+    'Fairy Pot': 'Fairy',
+    'Free Fairies': 'Fairy',
+    'Butterfly Fairy': 'Fairy',
+    'Gossip Stone Fairy': 'Fairy',
+    'Fairy Pond': 'Fairy',
+    'Big Poe Kill': 'Big Poe',
 }
 
 
@@ -597,9 +620,17 @@ def generate_itempool(world):
     elif world.junk_ice_traps in ['mayhem', 'onslaught']:
         junk_pool[:] = [('Ice Trap', 1)]
 
-    for location, item in eventlocations.items():
+    event_locations = list(filter(lambda loc: loc.name in eventlocations, world.get_locations()))
+    for location in event_locations:
+        item = eventlocations[location.name]
         world.push_item(location, ItemFactory(item, world))
-        world.get_location(location).locked = True
+        location.locked = True
+
+    drop_locations = list(filter(lambda loc: loc.type == 'Drop', world.get_locations()))
+    for drop_location in drop_locations:
+        item = droplocations[drop_location.name]
+        world.push_item(drop_location, ItemFactory(item, world))
+        drop_location.locked = True
 
     # set up item pool
     (pool, placed_items) = get_pool_core(world)
@@ -654,7 +685,11 @@ def get_pool_core(world):
         placed_items['HF Grotto Cow'] = 'Milk'
         if world.dungeon_mq['Jabu Jabus Belly']:
             placed_items['Jabu Jabus Belly MQ Cow'] = 'Milk'
-        
+
+    if world.shuffle_beans:
+        pool.append('Magic Bean Pack')
+    else:
+        placed_items['Magic Bean Salesman'] = 'Magic Bean'
 
     if world.dungeon_mq['Deku Tree']:
         skulltula_locations_final = skulltula_locations + [
@@ -956,14 +991,12 @@ def get_pool_core(world):
     if world.dungeon_mq['Spirit Temple']:
         pool.extend(SpT_MQ)
     else:
-        placed_items['Spirit Temple Nut Crate'] = 'Deku Nut Drop'
         pool.extend(SpT_vanilla)
     if world.dungeon_mq['Shadow Temple']:
         pool.extend(ShT_MQ)
     else:
         pool.extend(ShT_vanilla)
     if not world.dungeon_mq['Bottom of the Well']:
-        placed_items['Bottom of the Well Stick Pot'] = 'Deku Stick Drop'
         pool.extend(BW_vanilla)
     if world.dungeon_mq['Gerudo Training Grounds']:
         pool.extend(GTG_MQ)
@@ -1001,6 +1034,9 @@ def get_pool_core(world):
         
     if world.free_scarecrow:
         world.state.collect(ItemFactory('Scarecrow Song'))
+    
+    if world.no_epona_race:
+        world.state.collect(ItemFactory('Epona'))
 
     if world.shuffle_mapcompass == 'remove' or world.shuffle_mapcompass == 'startwith':
         for item in [item for dungeon in world.dungeons for item in dungeon.dungeon_items]:
