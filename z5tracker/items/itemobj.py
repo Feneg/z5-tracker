@@ -131,7 +131,7 @@ class i(object):
             self.inventory += 1
             self.location_tracker.add_item(self.identifier)
         self._set_links()
-        if self.icon:
+        if self.icon and self.gui is not None:
             self.gui.check_state(self)
 
     def decrease(self, *args) -> None:
@@ -143,7 +143,7 @@ class i(object):
             self.inventory -= 1
             self.location_tracker.remove_item(self.identifier)
         self._set_links()
-        if self.icon:
+        if self.icon and self.gui is not None:
             self.gui.check_state(self)
 
     def reset(self) -> None:

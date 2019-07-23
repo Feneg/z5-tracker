@@ -73,6 +73,8 @@ class ItemTracker(dict):
         except KeyError:
             pass
 
+        location_tracker.register_item_tracker(self)
+
     def reset(self) -> None:
         '''
         Reset all items.

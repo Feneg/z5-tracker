@@ -7,6 +7,8 @@ import operator
 
 from .. import rulesets
 
+from .links import EVENTLOCATIONS
+
 __all__ = 'DisplayGone', 'LocationTracker'
 
 
@@ -24,10 +26,13 @@ class LocationTracker(object):
         itemlocations: item location list
         skulltulalocations: skulltula location list
         gui: list of registered map displays
+        item_tracker: item tracker
     '''
 
     def __init__(self):
+        self.recursion_block = False
         self.gui = []
+        self.item_tracker = None
         self.reset()
 
     def reset(self) -> None:
@@ -49,11 +54,24 @@ class LocationTracker(object):
 
         self.gui.append(gui)
 
+    def register_item_tracker(self, tracker) -> None:
+        '''
+        Register item tracker.
+
+        This is used for location-dependent event items.
+
+        Args:
+           tracker: item tracker
+        '''
+
+        self.item_tracker = tracker
+
     def refresh_gui(self) -> None:
         '''
         Refresh registered map displays.
         '''
 
+        self.check_event_items()
         guilist = self.gui
         self.gui = []
         for gui in guilist:
@@ -153,18 +171,6 @@ class LocationTracker(object):
 
         return self.rules.check_rule(rule)
 
-    def check_access(self, location: str) -> bool:
-        '''
-        Check whether given location can be accessed.
-
-        Args:
-            location: either item location or game region
-        Returns:
-            bool: return value of check
-        '''
-
-        return self.rules.check_access(location)
-
     def dungeon_locations(self, dungeonname: str) -> (list, list):
         '''
         Return list of locations in given dungeon.
@@ -191,3 +197,47 @@ class LocationTracker(object):
         '''
 
         return self.rules.dungeon_info(dungeonname)
+
+    def check_event_items(self) -> None:
+        '''
+        Check event items and update event items as needd.
+        '''
+
+        if self.recursion_block or self.item_tracker is None:
+            return
+
+        # Randomiser links
+        events = self.rules.event_links()
+        for eitem in events:
+            self.recursion_block = True
+            if events[eitem]:
+                self.item_tracker[eitem].increase()
+            else:
+                for _ in range(self.item_tracker[eitem].inventory):
+                    self.item_tracker[eitem].decrease()
+            self.recursion_block = False
+
+        # Manual links
+        self.rules.clear_cache()
+        for event in EVENTLOCATIONS:
+
+            # Make check.
+            if event['type'] == 'location':
+                check = True
+                for subevent in event['name']:
+                    check &= self.rules.location_available(
+                        subevent, 'item', event['age'], just_region=True)
+                    print(check)
+            else:
+                assert False
+
+            # Set event.
+            item = self.item_tracker[event['event']]
+            self.recursion_block = True
+            if check:
+                for _ in range(event['amount'] - item.inventory):
+                    item.increase()
+            else:
+                for _ in range(item.inventory):
+                    item.decrease()
+            self.recursion_block = False

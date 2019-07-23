@@ -7,6 +7,7 @@ from ... import maps
 from . import DungeonList as dungeons
 from . import Item as items
 from . import ItemList as itemlist
+from . import ItemPool as itempool
 from . import HintList as hintlist
 from . import Location as locationclass
 from . import LocationList as locationlist
@@ -124,7 +125,7 @@ class Ruleset(object):
 
     def location_available(
             self, name: str, loctype: str, age: str = 'either',
-            state: state.State = None) -> bool:
+            state: state.State = None, just_region: bool = False) -> bool:
         '''
         Check whether given item location is available.
 
@@ -133,6 +134,7 @@ class Ruleset(object):
             loctype: 'item' or 'skulltula'
             age: 'child', 'adult' or 'either'
             state: if given, use this state instead of default one
+            just_region: if 'name' is a region, just check region availability
         Returns:
             bool: True if location is available
         '''
@@ -140,7 +142,7 @@ class Ruleset(object):
         assert loctype in ('item', 'skulltula')
         listing = self.items if loctype == 'item' else self.skulls
         usestate = self.state if state is None else state
-        if isinstance(listing[name], regions.Region):
+        if isinstance(listing[name], regions.Region) and not just_region:
             available = all(
                 usestate.can_reach(location, age=age)
                 for location in listing[name].locations)
@@ -174,6 +176,10 @@ class Ruleset(object):
             fullstate.prog_items[skeyname] = info['keys']
         if info['bosskey'] and fullstate.world.shuffle_smallkeys == 'dungeon':
             fullstate.prog_items[bkeyname] = 1
+        events = self.event_links()
+        for eitem in events:
+            if events[eitem]:
+                fullstate.prog_items[eitem] = 1
         fullstate.clear_cached_unreachable()
         locs = self.dungeon_locations(name)
         locs = locs[0] if loctype == 'item' else locs[1]
@@ -233,6 +239,7 @@ class Ruleset(object):
         '''
 
         self.state.remove(self.inventory[itemname])
+        self.state.clear_cached_unreachable()
 
     def check_rule(self, rule: operator.methodcaller) -> bool:
         '''
@@ -245,28 +252,6 @@ class Ruleset(object):
         '''
 
         return rule(self.state)
-
-    def check_access(self, location: str) -> bool:
-        '''
-        Check whether given location can be accessed.
-
-        Args:
-            location: either item location, game region or region connector
-        Returns:
-            bool: return value of check
-        '''
-
-        for loctype in ('get_region', 'get_entrance', 'get_location'):
-            loccall = operator.methodcaller(loctype, location)
-            try:
-                locobject = loccall(self.world)
-            except RuntimeError:
-                continue
-            break
-        else:
-            raise
-
-        return locobject.can_reach(self.state)
 
     def dungeon_locations(self, dungeonname: str) -> (list, list):
         '''
@@ -357,3 +342,28 @@ class Ruleset(object):
         '''
 
         return self.world.hint_dist
+
+    def event_links(self) -> dict:
+        '''
+        Return availability of event items.
+
+        Returns:
+            dict: {'event item': bool}
+        '''
+
+        eventlocations = {}
+        eventlinks = itempool.eventlocations
+        for eitem in set(eventlinks.values()):
+            eventlocations[eitem] = any(
+                self.location_available(eloc, 'item')
+                for eloc in eventlinks if eventlinks[eloc] == eitem)
+        return eventlocations
+
+    def clear_cache(self) -> None:
+        '''
+        Clean up world state.
+
+        This is sometimes required for removing previously accessible locations.
+        '''
+
+        self.state.clear_cached_unreachable()

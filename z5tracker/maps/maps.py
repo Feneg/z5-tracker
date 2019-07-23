@@ -236,6 +236,10 @@ ITEMLOCATIONS = {
         'maps': ('item_child',),
         'coordinates': (314, 1387),
         'type': 'npc'},
+    "Bombchu Bowling Bombchus": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'npc'},
     "Dog Lady": {
         'maps': ('item_child',),
         'coordinates': (355, 1463),
@@ -271,6 +275,10 @@ ITEMLOCATIONS = {
     "Man on Roof": {
         'maps': ('item_child', 'item_adult'),
         'coordinates': (371, 1830),
+        'type': 'npc'},
+    "Magic Bean Salesman": {
+        'maps': (),
+        'coordinates': (),
         'type': 'npc'},
     "Frog Ocarina Game": {
         'maps': ('item_child',),
@@ -486,15 +494,59 @@ ITEMLOCATIONS = {
         'maps': (),
         'coordinates': (),
         'type': 'npc'},
+    "Malon Race": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'npc'},
     "Gerudo Fortress Carpenter Rescue": {
-        'maps': ('item_adult',),
-        'coordinates': (358, 524),
+        'maps': (),
+        'coordinates': (),
+        'type': 'npc'},
+    "Gerudo Fortress Open Gate": {
+        'maps': (),
+        'coordinates': (),
         'type': 'npc'},
     "Haunted Wasteland Bombchu Salesman": {
         'maps': ('item_adult',),
         'coordinates': (410, 400),
         'type': 'shop',
         'restriction': 'shopsanity'},
+    "Windmill Drain Well": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'npc'},
+    "Goron City Woods Warp from City": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'standard'},
+    "Goron City Woods Warp from Darunia": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'standard'},
+    "Goron City Woods Warp from Woods": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'standard'},
+    "Deku Tree Clear": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'npc'},
+    "Forest Temple Poe Sisters 1": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'npc'},
+    "Forest Temple Poe Sisters 2": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'npc'},
+    "Child in Water Temple": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'standard'},
+    "Water Temple Clear": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'standard'},
     "Ganons Castle Forest Trial Clear": {
         'maps': (),
         'coordinates': (),
