@@ -46,6 +46,7 @@ class Ruleset(object):
 
         # Set up game data.
         self.world = world.World(self.settings)
+        self.world.id = 0
         glitch_rules = ('Glitched World' if self.world.logic_rules == 'glitched'
                         else 'World')
         self.world.load_regions_from_json(os.path.join(
@@ -229,6 +230,7 @@ class Ruleset(object):
         '''
 
         self.state.collect(self.inventory[itemname])
+        self.state.clear_cache()
 
     def remove_item(self, itemname: str) -> None:
         '''
@@ -239,7 +241,7 @@ class Ruleset(object):
         '''
 
         self.state.remove(self.inventory[itemname])
-        self.state.clear_cached_unreachable()
+        self.state.clear_cache()
 
     def check_rule(self, rule: operator.methodcaller) -> bool:
         '''
@@ -358,12 +360,3 @@ class Ruleset(object):
                 self.location_available(eloc, 'item')
                 for eloc in eventlinks if eventlinks[eloc] == eitem)
         return eventlocations
-
-    def clear_cache(self) -> None:
-        '''
-        Clean up world state.
-
-        This is sometimes required for removing previously accessible locations.
-        '''
-
-        self.state.clear_cached_unreachable()

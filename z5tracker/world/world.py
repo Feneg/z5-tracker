@@ -71,7 +71,6 @@ class LocationTracker(object):
         Refresh registered map displays.
         '''
 
-        self.check_event_items()
         guilist = self.gui
         self.gui = []
         for gui in guilist:
@@ -93,6 +92,7 @@ class LocationTracker(object):
         '''
 
         assert loctype in ('item', 'skulltula')
+        self.check_event_items()
         listing = (self.itemlocations if loctype == 'item'
                    else self.skulltulalocations)
         available = {}
@@ -115,6 +115,7 @@ class LocationTracker(object):
             bool: True of all locations are available with all keys
         '''
 
+        self.check_event_items()
         return self.rules.dungeon_available(dungeonname, loctype)
 
     def check_visibility(self, loctype: str, age: str = 'either') -> dict:
@@ -218,7 +219,6 @@ class LocationTracker(object):
             self.recursion_block = False
 
         # Manual links
-        self.rules.clear_cache()
         for event in EVENTLOCATIONS:
 
             # Make check.
@@ -227,7 +227,6 @@ class LocationTracker(object):
                 for subevent in event['name']:
                     check &= self.rules.location_available(
                         subevent, 'item', event['age'], just_region=True)
-                    print(check)
             else:
                 assert False
 
