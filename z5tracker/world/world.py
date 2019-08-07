@@ -31,6 +31,7 @@ class LocationTracker(object):
 
     def __init__(self):
         self.recursion_block = False
+        self.event_block = False
         self.gui = []
         self.item_tracker = None
         self.reset()
@@ -130,6 +131,7 @@ class LocationTracker(object):
         '''
 
         assert loctype in ('item', 'skulltula')
+        self.check_event_items()
         listing = (self.itemlocations if loctype == 'item'
                    else self.skulltulalocations)
         visible = {}
@@ -146,6 +148,7 @@ class LocationTracker(object):
             itemname: identifier of item
         '''
 
+        self.event_block = False
         self.rules.add_item(itemname)
         self.refresh_gui()
 
@@ -157,6 +160,7 @@ class LocationTracker(object):
             itemname: identifier of item
         '''
 
+        self.event_block = False
         self.rules.remove_item(itemname)
         self.refresh_gui()
 
@@ -204,39 +208,54 @@ class LocationTracker(object):
         Check event items and update event items as needd.
         '''
 
-        if self.recursion_block or self.item_tracker is None:
+        if (self.event_block or self.recursion_block or
+            self.item_tracker is None):
             return
-
-        # Randomiser links
         events = self.rules.event_links()
-        for eitem in events:
-            self.recursion_block = True
-            if events[eitem]:
-                self.item_tracker[eitem].increase()
-            else:
-                for _ in range(self.item_tracker[eitem].inventory):
-                    self.item_tracker[eitem].decrease()
-            self.recursion_block = False
 
-        # Manual links
+        # Remove all event items.
+        self.recursion_block = True
         for event in EVENTLOCATIONS:
-
-            # Make check.
-            if event['type'] == 'location':
-                check = True
-                for subevent in event['name']:
-                    check &= self.rules.location_available(
-                        subevent, 'item', event['age'], just_region=True)
-            else:
-                assert False
-
-            # Set event.
             item = self.item_tracker[event['event']]
-            self.recursion_block = True
-            if check:
-                for _ in range(event['amount'] - item.inventory):
-                    item.increase()
-            else:
-                for _ in range(item.inventory):
-                    item.decrease()
-            self.recursion_block = False
+            for _ in range(item.inventory):
+                item.decrease()
+        for eitem in events:
+            for _ in range(self.item_tracker[eitem].inventory):
+                self.item_tracker[eitem].decrease()
+        self.recursion_block = False
+
+        changed = True
+        while changed:
+            changed = False
+
+            # Randomiser links
+            events = self.rules.event_links()
+            for eitem in events:
+                self.recursion_block = True
+                if events[eitem] and not self.item_tracker[eitem].inventory:
+                    self.item_tracker[eitem].increase()
+                    changed = True
+                self.recursion_block = False
+
+            # Manual links
+            for event in EVENTLOCATIONS:
+
+                # Make check.
+                if event['type'] == 'location':
+                    check = True
+                    for subevent in event['name']:
+                        check &= self.rules.location_available(
+                            subevent, 'item', event['age'], just_region=True)
+                else:
+                    assert False
+
+                # Set event.
+                item = self.item_tracker[event['event']]
+                self.recursion_block = True
+                if check:
+                    for _ in range(event['amount'] - item.inventory):
+                        item.increase()
+                        changed = True
+                self.recursion_block = False
+
+        self.event_block = True
