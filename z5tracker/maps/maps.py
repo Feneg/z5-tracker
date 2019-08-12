@@ -277,8 +277,8 @@ ITEMLOCATIONS = {
         'coordinates': (371, 1830),
         'type': 'npc'},
     "Magic Bean Salesman": {
-        'maps': (),
-        'coordinates': (),
+        'maps': ('item_child',),
+        'coordinates': (540, 1972),
         'type': 'npc'},
     "Frog Ocarina Game": {
         'maps': ('item_child',),
@@ -455,10 +455,6 @@ ITEMLOCATIONS = {
         'coordinates': (),
         'type': 'standard'},
     "Pierre": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'npc'},
-    "Magic Bean Salesman": {
         'maps': (),
         'coordinates': (),
         'type': 'npc'},
