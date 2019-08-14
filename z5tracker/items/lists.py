@@ -144,7 +144,7 @@ ITEMS = (
     i('Shadow Trial Clear', (), ('<stub>',), ('<stub>',)),
     i('Spirit Trial Clear', (), ('<stub>',), ('<stub>',)),
     i('Light Trial Clear', (), ('<stub>',), ('<stub>',)),
-    i('Triforce', (), (), ()),
+    i('Triforce', (), ('<stub>',), ('<stub>',)),
     i('Buy Deku Nut (5)', (), (), ()),
     i('Buy Deku Nut (10)', (), (), ()),
     i('Buy Deku Stick (1)', (), ('<stub>',), ('<stub>',)),

@@ -1,5 +1,6 @@
 import operator
 import os.path
+import typing
 
 from ...config import CONFIG
 from ... import maps
@@ -177,11 +178,16 @@ class Ruleset(object):
             fullstate.prog_items[skeyname] = info['keys']
         if info['bosskey'] and fullstate.world.shuffle_smallkeys == 'dungeon':
             fullstate.prog_items[bkeyname] = 1
-        events = self.event_links()
+        fullstate.clear_cache()
+        if name == 'Ganons Castle':
+            restrict = operator.methodcaller('startswith', 'Ganon')
+        else:
+            restrict = operator.methodcaller('startswith', name)
+        events = self.event_links(fullstate, restrict)
         for eitem in events:
             if events[eitem]:
                 fullstate.prog_items[eitem] = 1
-        fullstate.clear_cached_unreachable()
+        fullstate.clear_cache()
         locs = self.dungeon_locations(name)
         locs = locs[0] if loctype == 'item' else locs[1]
         listing = self.items if loctype == 'item' else self.skulls
@@ -345,18 +351,25 @@ class Ruleset(object):
 
         return self.world.hint_dist
 
-    def event_links(self) -> dict:
+    def event_links(self, state: state.State = None, restrict = None) -> dict:
         '''
         Return availability of event items.
 
+        Args:
+            state: if not None, use this state instead of default
+            restrict: only return events passing this test
         Returns:
             dict: {'event item': bool}
         '''
 
         eventlocations = {}
         eventlinks = itempool.eventlocations
-        for eitem in set(eventlinks.values()):
+        if restrict is not None:
+            events = {eitem for eitem in eventlinks if restrict(eitem)}
+        else:
+            events = set(eventlinks.values())
+        for eitem in events:
             eventlocations[eitem] = any(
-                self.location_available(eloc, 'item')
+                self.location_available(eloc, 'item', state=state)
                 for eloc in eventlinks if eventlinks[eloc] == eitem)
         return eventlocations

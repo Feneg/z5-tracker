@@ -116,7 +116,11 @@ class LocationTracker(object):
             bool: True of all locations are available with all keys
         '''
 
-        self.check_event_items()
+        if dungeonname == 'Ganons Castle':
+            restrict = operator.methodcaller('startswith', 'Ganon')
+        else:
+            restrict = operator.methodcaller('startswith', dungeonname)
+        self.check_event_items(restrict)
         return self.rules.dungeon_available(dungeonname, loctype)
 
     def check_visibility(self, loctype: str, age: str = 'either') -> dict:
@@ -203,15 +207,18 @@ class LocationTracker(object):
 
         return self.rules.dungeon_info(dungeonname)
 
-    def check_event_items(self) -> None:
+    def check_event_items(self, restrict=None) -> None:
         '''
-        Check event items and update event items as needd.
+        Check event items and update event items as needed.
+
+        Args:
+            restrict: only return events passing this test
         '''
 
         if (self.event_block or self.recursion_block or
             self.item_tracker is None):
             return
-        events = self.rules.event_links()
+        events = self.rules.event_links(restrict=restrict)
 
         # Remove all event items.
         self.recursion_block = True
@@ -225,11 +232,16 @@ class LocationTracker(object):
         self.recursion_block = False
 
         changed = True
+        events = self.rules.event_links(restrict=restrict)
         while changed:
             changed = False
 
+            # Update events.
+            newevents = self.rules.event_links(restrict=restrict)
+            for eitem in events:
+                events[eitem] |= newevents[eitem]
+
             # Randomiser links
-            events = self.rules.event_links()
             for eitem in events:
                 self.recursion_block = True
                 if events[eitem] and not self.item_tracker[eitem].inventory:
