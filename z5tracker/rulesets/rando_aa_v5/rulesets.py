@@ -184,10 +184,15 @@ class Ruleset(object):
         else:
             restrict = operator.methodcaller('startswith', name)
         events = self.event_links(fullstate, restrict)
-        for eitem in events:
-            if events[eitem]:
-                fullstate.prog_items[eitem] = 1
-        fullstate.clear_cache()
+        changed = True
+        while changed:
+            changed = False
+            for eitem in events:
+                if events[eitem] and not fullstate.prog_items[eitem]:
+                    fullstate.prog_items[eitem] = 1
+                    changed = True
+            fullstate.clear_cache()
+            events = self.event_links(fullstate, restrict)
         locs = self.dungeon_locations(name)
         locs = locs[0] if loctype == 'item' else locs[1]
         listing = self.items if loctype == 'item' else self.skulls
@@ -365,7 +370,8 @@ class Ruleset(object):
         eventlocations = {}
         eventlinks = itempool.eventlocations
         if restrict is not None:
-            events = {eitem for eitem in eventlinks if restrict(eitem)}
+            events = {
+                eventlinks[eloc] for eloc in eventlinks if restrict(eloc)}
         else:
             events = set(eventlinks.values())
         for eitem in events:
