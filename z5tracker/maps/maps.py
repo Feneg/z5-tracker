@@ -1276,7 +1276,7 @@ ITEMLOCATIONS = {
         'coordinates': (2260, 2930),
         'type': 'chest'},
     "Ganon": {
-        'maps': ('item_adult',),
+        'maps': (),
         'coordinates': (50, 1440),
         'type': 'ganon'},
 
