@@ -116,10 +116,7 @@ class LocationTracker(object):
             bool: True of all locations are available with all keys
         '''
 
-        if dungeonname == 'Ganons Castle':
-            restrict = operator.methodcaller('startswith', 'Ganon')
-        else:
-            restrict = operator.methodcaller('startswith', dungeonname)
+        restrict = operator.methodcaller('startswith', dungeonname)
         self.check_event_items(restrict)
         return self.rules.dungeon_available(dungeonname, loctype)
 

@@ -179,10 +179,7 @@ class Ruleset(object):
         if info['bosskey'] and fullstate.world.shuffle_smallkeys == 'dungeon':
             fullstate.prog_items[bkeyname] = 1
         fullstate.clear_cache()
-        if name == 'Ganons Castle':
-            restrict = operator.methodcaller('startswith', 'Ganon')
-        else:
-            restrict = operator.methodcaller('startswith', name)
+        restrict = operator.methodcaller('startswith', name)
         events = self.event_links(fullstate, restrict)
         changed = True
         while changed:
