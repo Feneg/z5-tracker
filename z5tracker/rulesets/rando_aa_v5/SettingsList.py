@@ -867,6 +867,17 @@ setting_infos = [
         shared         = True,
     ),
     Checkbutton(
+        name           = 'useful_cutscenes',
+        gui_text       = 'Enable Useful Cutscenes',
+        gui_group      = 'convenience',
+        gui_tooltip    = '''\
+            The cutscenes of the Poes in Forest Temple,
+            Darunia in Fire Temple, and the introduction
+            to Twinrova will not be skipped.
+        ''',
+        shared         = True,
+    ),
+    Checkbutton(
         name           = 'fast_chests',
         gui_text       = 'Fast Chest Cutscenes',
         gui_group      = 'convenience',
@@ -918,7 +929,7 @@ setting_infos = [
         gui_text       = 'Start with Max Rupees',
         gui_group      = 'convenience',
         gui_tooltip    = '''\
-            Start the game with 99 rupees.
+            Start the game with 99 rupees. Wallet upgrades fill wallet.
         ''',
         shared         = True,
     ),
@@ -1112,12 +1123,12 @@ setting_infos = [
             Bottom of the Well are opened for both adult and child.
 
             'Simple Indoors':
-            Shuffle dungeon entrances along with Grottos and simple
+            Shuffle dungeon entrances along with simple Grotto and
             Interior entrances (i.e. most Houses and Great Fairies).
 
             'All Indoors':
             Extended version of 'Simple Indoors' with some extra entrances:
-            Windmill, Link's House and Temple of Time.
+            Windmill, Link's House, Temple of Time and Dampe's Grave.
 
             'All Indoors & Overworld':
             Same as 'All Indoors' but with Overworld loading zones shuffled
@@ -1257,6 +1268,7 @@ setting_infos = [
         choices        = {
             'remove':    'Maps/Compasses: Remove',
             'startwith': 'Maps/Compasses: Start With',
+            'vanilla':   'Maps/Compasses: Vanilla Locations',
             'dungeon':   'Maps/Compasses: Dungeon Only',
             'keysanity': 'Maps/Compasses: Anywhere'
         },
@@ -1270,6 +1282,9 @@ setting_infos = [
             'Start With': Maps and Compasses are given to
             you from the start. This will add a small
             amount of money and refill items to the pool.
+
+            'Vanilla': Maps and Compasses will appear in
+            their vanilla locations.
 
             'Dungeon': Maps and Compasses can only appear
             in their respective dungeon.
@@ -1292,6 +1307,7 @@ setting_infos = [
         default        = 'dungeon',
         choices        = {
             'remove':    'Small Keys: Remove (Keysy)',
+            'vanilla':   'Small Keys: Vanilla Locations',            
             'dungeon':   'Small Keys: Dungeon Only',
             'keysanity': 'Small Keys: Anywhere (Keysanity)'
         },
@@ -1300,6 +1316,11 @@ setting_infos = [
             'Remove': Small Keys are removed. All locked
             doors in dungeons will be unlocked. An easier
             mode.
+
+            'Vanilla': Small Keys will appear in their 
+            vanilla locations. You start with 3 keys in 
+            Spirit Temple MQ because the vanilla key 
+            layout is not beatable in logic.
 
             'Dungeon': Small Keys can only appear in their
             respective dungeon. If Fire Temple is not a
@@ -1325,6 +1346,7 @@ setting_infos = [
         default        = 'dungeon',
         choices        = {
             'remove':    'Boss Keys: Remove (Keysy)',
+            'vanilla':   'Boss Keys: Vanilla Locations',            
             'dungeon':   'Boss Keys: Dungeon Only',
             'keysanity': 'Boss Keys: Anywhere (Keysanity)',
         },
@@ -1333,6 +1355,9 @@ setting_infos = [
             'Remove': Boss Keys are removed. All locked
             doors in dungeons will be unlocked. An easier
             mode.
+
+            'Vanilla': Boss Keys will appear in their 
+            vanilla locations.
 
             'Dungeon': Boss Keys can only appear in their
             respective dungeon.
@@ -1398,7 +1423,7 @@ setting_infos = [
             If set, a random number of dungeons
             will have Master Quest designs.
         ''',
-        dependency     = lambda settings: False if settings.entrance_shuffle != 'off' or settings.logic_rules == 'glitched' else None,
+        dependency     = lambda settings: False if settings.logic_rules == 'glitched' else None,
         shared         = True,
         gui_params     = {
             'randomize_key': 'randomize_settings',
@@ -1427,7 +1452,7 @@ setting_infos = [
             Master Quest redesigns.
             ''',
 
-        dependency     = lambda settings: 0 if settings.mq_dungeons_random or settings.entrance_shuffle != 'off' or settings.logic_rules == 'glitched' else None,
+        dependency     = lambda settings: 0 if settings.mq_dungeons_random or settings.logic_rules == 'glitched' else None,
 
         shared         = True,
         gui_params     = {
@@ -1457,17 +1482,6 @@ setting_infos = [
             '''
         }
     ),
-
-    Checkbutton(
-        name='force_junk',
-        gui_text='Force Junk',
-        gui_group='logic_tab',
-        default=False,
-        gui_tooltip    = '''\
-            Forces blue rupees at excluded locations on this list. Any songs will not have junk at them (unless song sanity is turned on), but will not contain important items. Distribution files supersedes this setting.
-        ''',
-    ),
-
     Setting_Info(
         name           = 'allowed_tricks',
         type           = list,
@@ -1802,7 +1816,8 @@ setting_infos = [
             is played.
 
             'Random': Area background music is
-            randomized.
+            randomized. Additional music can
+            be loaded from data/Music/
         ''',
     ),
     Checkbutton(

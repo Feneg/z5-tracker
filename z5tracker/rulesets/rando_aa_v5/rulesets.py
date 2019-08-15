@@ -174,9 +174,11 @@ class Ruleset(object):
         bkeyname = 'Boss Key ({0:s})'.format(name)
         info = self.dungeon_info(name)
         fullstate = self.state.copy()
-        if fullstate.world.shuffle_smallkeys == 'dungeon':
+        if fullstate.world.shuffle_smallkeys in ('dungeon', 'vanilla'):
             fullstate.prog_items[skeyname] = info['keys']
-        if info['bosskey'] and fullstate.world.shuffle_smallkeys == 'dungeon':
+        if (
+                info['bosskey'] and
+                fullstate.world.shuffle_bosskeys in ('dungeon', 'vanilla')):
             fullstate.prog_items[bkeyname] = 1
         fullstate.clear_cache()
         restrict = operator.methodcaller('startswith', name)
@@ -323,10 +325,12 @@ class Ruleset(object):
         locations, _ = self.dungeon_locations(dungeonname)
         ret['items'] = (
             len(locations)
-            - ret['keys'] * (self.world.shuffle_smallkeys == 'dungeon')
-            - ret['bosskey'] * (self.world.shuffle_bosskeys == 'dungeon')
+            - ret['keys'] * (
+                self.world.shuffle_smallkeys in ('dungeon', 'vanilla'))
+            - ret['bosskey'] * (
+                self.world.shuffle_bosskeys in ('dungeon', 'vanilla'))
             - len(dungeon.dungeon_items) * (
-                self.world.shuffle_mapcompass == 'dungeon'))
+                self.world.shuffle_mapcompass in ('dungeon', 'vanilla')))
         return ret
 
     def get_hint_items(self, pooltype: str) -> list:

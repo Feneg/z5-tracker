@@ -380,7 +380,8 @@ class State(object):
         elif item == 'Golden Gauntlets':
             return self.has('Progressive Strength Upgrade', 3) and self.is_adult()
         elif item == 'Epona':
-            return self.has('Epona') and self.is_adult() and self.can_play('Eponas Song')
+            # Glitched can steal Epona by hovering over the LLR fences instead of using Epona's Song
+            return self.has('Epona') and self.is_adult() and (self.can_play('Eponas Song') or (self.is_glitched and self.can_hover()))
         elif item == 'Scarecrow':
             return self.has('Progressive Hookshot') and self.is_adult() and self.can_play('Scarecrow Song')
         elif item == 'Distant Scarecrow':
@@ -397,7 +398,7 @@ class State(object):
 
 
     def has_bombchus(self):
-        return self.can_buy_bombchus()
+        return self.can_buy_bombchus() and (self.world.bombchus_in_logic or self.has('Bomb Bag'))
 
 
     def has_bombchus_item(self):
@@ -408,7 +409,7 @@ class State(object):
 
 
     def has_explosives(self):
-        return self.has_bombs() or self.has_bombchus()
+        return self.has_bombs() or (self.world.bombchus_in_logic and self.has_bombchus())
 
 
     def can_blast_or_smash(self):
@@ -495,7 +496,7 @@ class State(object):
             # Require certain warp songs based on ER settings to ensure the player doesn't have to savewarp in order to complete the trade quest
             # This is meant to avoid possible logical softlocks until either the trade quest is reworked or a better solution is found
             guaranteed_path = True
-            if self.world.shuffle_special_interior_entrances:
+            if self.world.shuffle_special_indoor_entrances:
                 guaranteed_path = self.can_play('Prelude of Light')
             elif self.world.shuffle_interior_entrances:
                 colossus_fairy_entrance = self.world.get_entrance('Desert Colossus -> Colossus Fairy')

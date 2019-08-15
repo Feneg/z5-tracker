@@ -205,7 +205,7 @@ ITEMS = (
     i('Fish', (0, 3), ('Fish',), ('bottle_fish',)),
     i('Bugs', (), (), ()),
     i('Big Poe', (), (), ()),
-    i('Bombchu Drop', (), ('<stub>',), ('<stub>',)),
+    i('Bombchu Drop', (), ('<stub>',), ('<stub>',), link=(('Bombchus', 1),)),
 
     i('Scarecrow Song', (), ('<stub>',), ('<stub>',)),
     i('Minuet of Forest', (0, 9), ('Minuet of Forest',), ('minuet',)),
