@@ -358,6 +358,10 @@ ITEMLOCATIONS = {
         'maps': ('item_child',),
         'coordinates': (440, 1479),
         'type': 'free'},
+    "Haunted Wasteland Bombchu Salesman": {
+        'maps': ('item_adult',),
+        'coordinates': (410, 400),
+        'type': 'npc'},
 
     # Freestanding Pieces of Heart
     "Impa House Freestanding PoH": {
@@ -462,22 +466,6 @@ ITEMLOCATIONS = {
         'maps': (),
         'coordinates': (),
         'type': 'npc'},
-    "Sell 1 Big Poe": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'npc'},
-    "Sell 2 Big Poe": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'npc'},
-    "Sell 3 Big Poe": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'npc'},
-    "Sell 4 Big Poe": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'npc'},
     "King Zora Moves": {
         'maps': (),
         'coordinates': (373, 2550),
@@ -486,87 +474,6 @@ ITEMLOCATIONS = {
         'maps': ('item_child',),
         'coordinates': (279, 1559),
         'type': 'free'},
-    "Epona": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'npc'},
-    "Malon Race": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'npc'},
-    "Gerudo Fortress Carpenter Rescue": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'npc'},
-    "Gerudo Fortress Open Gate": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'npc'},
-    "Haunted Wasteland Bombchu Salesman": {
-        'maps': ('item_adult',),
-        'coordinates': (410, 400),
-        'type': 'shop',
-        'restriction': 'shopsanity'},
-    "Windmill Drain Well": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'npc'},
-    "Goron City Woods Warp from City": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'standard'},
-    "Goron City Woods Warp from Darunia": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'standard'},
-    "Goron City Woods Warp from Woods": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'standard'},
-    "Deku Tree Clear": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'npc'},
-    "Forest Temple Poe Sisters 1": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'npc'},
-    "Forest Temple Poe Sisters 2": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'npc'},
-    "Child in Water Temple": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'standard'},
-    "Water Temple Clear": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'standard'},
-    "Ganons Castle Forest Trial Clear": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'chest'},
-    "Ganons Castle Fire Trial Clear": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'chest'},
-    "Ganons Castle Water Trial Clear": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'chest'},
-    "Ganons Castle Shadow Trial Clear": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'chest'},
-    "Ganons Castle Spirit Trial Clear": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'chest'},
-    "Ganons Castle Light Trial Clear": {
-        'maps': (),
-        'coordinates': (),
-        'type': 'chest'},
 
     # Nuts and sticks
     "Deku Baba Sticks": {

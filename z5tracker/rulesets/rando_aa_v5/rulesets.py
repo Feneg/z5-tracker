@@ -369,7 +369,7 @@ class Ruleset(object):
         '''
 
         eventlocations = {}
-        eventlinks = itempool.eventlocations
+        eventlinks = itempool.fixedlocations
         if restrict is not None:
             events = {
                 eventlinks[eloc] for eloc in eventlinks if restrict(eloc)}
