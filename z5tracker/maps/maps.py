@@ -536,6 +536,10 @@ ITEMLOCATIONS = {
         'maps': (),
         'coordinates': (),
         'type': 'free'},
+    "Bean Plant Fairy": {
+        'maps': (),
+        'coordinates': (),
+        'type': 'free'},
     "Fairy Pond": {
         'maps': (),
         'coordinates': (),
