@@ -56,6 +56,10 @@ class Ruleset(object):
         # Set up dungeons.
         dungeons.create_dungeons(self.world)
 
+        # MIGHT BE NEEDED
+        # Set up additional locations.
+        #self.world.create_internal_locations()
+
         # Connect entrances to create a coherent world. If entrance
         # randomisation is ever supported, this will need to be skipped. The
         # randomiser used to call this but now instead gets here via
